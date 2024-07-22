@@ -1,0 +1,12 @@
+<div id="class-list" class="class-list">
+    <div class="class-card" *ngFor="let item of dataset">
+        <div class="class-header">
+            <h2>{{item.label}}</h2>
+        </div>
+        <div class="photo-container">
+            <div *ngIf="item.images">
+                <img src="">
+            </div>
+        </div>
+    </div>
+</div>

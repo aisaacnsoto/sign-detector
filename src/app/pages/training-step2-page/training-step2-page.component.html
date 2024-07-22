@@ -1,0 +1,11 @@
+<video #webcam autoplay></video>
+<canvas class="output_canvas" #output_canvas style="position: absolute; left: 0px; top: 0px;"></canvas>
+
+<button #dataCollector>Iniciar</button>
+<button #back>Regresar</button>
+<br />
+<br />
+<h5>{{item.label}}</h5>
+<p>{{item.imagesCount}} fotos</p>
+
+<div class="photo-container"><img [src]="image" *ngFor="let image of item.images; let index"></div>
