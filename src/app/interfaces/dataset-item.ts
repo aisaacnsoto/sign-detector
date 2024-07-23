@@ -3,4 +3,5 @@ export interface DatasetItem {
     label: string;
     images?: string[];
     imagesCount?: number;
+    imageGif?: string;
 }

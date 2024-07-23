@@ -22,7 +22,12 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "gif.worker.js",
+                "input": "node_modules/gif.js/dist",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/styles.css"

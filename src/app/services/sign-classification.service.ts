@@ -116,8 +116,6 @@ export class SignClassificationService {
             this._itemPrediction = datasetItem;
             this.itemPredictionSubject.next(datasetItem);
           }
-          /*let text = 'Prediction: ' + datasetItem.label + ' with ' +  + '% confidence';
-          console.log(text);*/
         });
       }
       window.requestAnimationFrame(this.predictionLoop);

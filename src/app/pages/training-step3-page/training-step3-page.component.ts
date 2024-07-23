@@ -60,7 +60,6 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   startCamera = async () => {
     try {
       await this.webcamService.initializeCamera(this.videoEl.nativeElement);
-      this.handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement);
     } catch (error) {
       console.error('Error initializing app:', error);
     }
@@ -73,6 +72,8 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
       this.statusEl.nativeElement.textContent = `Comenzando entrenamiento. (${epoch+1} / ${epochs_number})`;
     });
     this.statusEl.nativeElement.textContent = 'Entrenamiento finalizado.';
+
+    this.handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement);
 
     this.signClassificationService.startPrediction();
 

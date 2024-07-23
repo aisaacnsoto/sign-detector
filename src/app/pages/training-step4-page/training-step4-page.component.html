@@ -4,9 +4,7 @@
             <h2>{{item.label}}</h2>
         </div>
         <div class="photo-container">
-            <div *ngIf="item.images">
-                <img src="">
-            </div>
+            <img [src]="item.imageGif" *ngIf="item.imageGif">
         </div>
     </div>
 </div>

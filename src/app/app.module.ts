@@ -11,6 +11,7 @@ import { TrainingStep1PageComponent } from './pages/training-step1-page/training
 import { TrainingStep2PageComponent } from './pages/training-step2-page/training-step2-page.component';
 import { TrainingStep3PageComponent } from './pages/training-step3-page/training-step3-page.component';
 import { TrainingStep4PageComponent } from './pages/training-step4-page/training-step4-page.component';
+import { GifGeneratorService } from './services/gif-generator.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TrainingStep4PageComponent } from './pages/training-step4-page/training
     SignClassificationService,
     HandDetectionService,
     DatasetService,
+    GifGeneratorService
   ],
   bootstrap: [AppComponent]
 })

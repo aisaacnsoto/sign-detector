@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, DoCheck, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatasetItem } from 'src/app/interfaces/dataset-item';
 import { DatasetService } from 'src/app/services/dataset.service';
@@ -8,28 +8,29 @@ import { DatasetService } from 'src/app/services/dataset.service';
   templateUrl: './training-step1-page.component.html',
   styleUrls: ['./training-step1-page.component.css']
 })
-export class TrainingStep1PageComponent implements OnInit, AfterViewInit, DoCheck {
+export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('newClassNameInput') newClassNameInput: ElementRef<HTMLInputElement>;
   @ViewChild('addClassButton') addClassButton: ElementRef<HTMLButtonElement>;
   @ViewChild('trainButton') trainButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('divGif') divGif: ElementRef<HTMLDivElement>;
   dataset: DatasetItem[] = [];
   readyToTrain: boolean = false;
 
-  constructor(private router: Router, private _datasetService: DatasetService) {
+  constructor(
+    private router: Router,
+    private _datasetService: DatasetService
+    ) {
     this.dataset = this._datasetService.getItems();
   }
 
   ngOnInit() {
+    this.showTrainButton();
   }
   
   ngAfterViewInit() {
     this.addClassButton.nativeElement.addEventListener('click', this.onAddClassClick);
     this.trainButton.nativeElement.addEventListener('click', this.onTrainClick);
-  }
-
-  ngDoCheck() {
-    this.showTrainButton();
   }
 
   private onAddClassClick = () => {
@@ -61,10 +62,6 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit, DoChec
     } else {
       this.readyToTrain = false;
     }
-    
   }
 
-  /*redirigir(index) {
-    this.router.navigate(['/training-step2/:index']);
-  }*/
 }
