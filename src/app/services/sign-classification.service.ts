@@ -17,6 +17,7 @@ export class SignClassificationService {
   private handsDetected: boolean;
 
   private canvasElement: HTMLCanvasElement;
+  private videoElement: HTMLVideoElement;
   private index: number;
   
   private MOBILE_NET_INPUT_WIDTH = 224;
@@ -33,8 +34,9 @@ export class SignClassificationService {
 
   constructor(private datasetService: DatasetService) { }
 
-  setCanvas(canvasElement: HTMLCanvasElement) {
+  setElements(canvasElement: HTMLCanvasElement, videoElement: HTMLVideoElement) {
     this.canvasElement = canvasElement;
+    this.videoElement = videoElement;
   }
 
   setHandsDetected(handsDetected: boolean) {
@@ -125,8 +127,7 @@ export class SignClassificationService {
   private calculateFeaturesOnCurrentFrame(saveImage: boolean = false) {
     return tf.tidy(() => {
       if (saveImage) {
-        let dataURL = this.canvasElement.toDataURL('image/jpeg');
-        this.datasetService.addImageItem(this.index, dataURL);
+        this.saveFrameToDataset();
       }
       let videoFrameAsTensor = tf.browser.fromPixels(this.canvasElement);
       let resizedTensorFrame = tf.image.resizeBilinear(
@@ -141,6 +142,49 @@ export class SignClassificationService {
       return prediction.squeeze();
     });
   }
+
+  private saveFrameToDataset() {
+    let handDetectionImageURL = this.getHandDetectionImageURL();
+    let webcamImageURL = this.getWebcamImageURL();
+
+    this.datasetService.addImageItem(this.index, handDetectionImageURL, webcamImageURL);
+  }
+
+  private getHandDetectionImageURL() {
+    return this.canvasElement.toDataURL('image/jpeg');
+  }
+
+  private getWebcamImageURL() {
+    let canvas = document.createElement('canvas');
+    canvas.style.width = this.videoElement.videoWidth.toString();
+    canvas.style.height = this.videoElement.videoHeight.toString();
+    canvas.width = this.videoElement.videoWidth;
+    canvas.height = this.videoElement.videoHeight;
+    let canvasCtx = canvas.getContext('2d');
+    //canvasCtx.drawImage(this.videoElement, 0, 0, canvas.width, canvas.height);
+    canvasCtx.drawImage(this.videoElement, 0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
+    let base64Image = canvas.toDataURL('image/jpeg');
+    return base64Image;
+  }
+
+  /*private getWebcamImageURL() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Establecer el tamaño del lienzo para que coincida con el video
+    canvas.width = this.videoElement.videoWidth;
+    canvas.height = this.videoElement.videoHeight;
+
+    // Buscar el fotograma en el tiempo especificado
+    this.videoElement.currentTime = performance.now();
+
+    // Dibujar el fotograma en el lienzo
+    ctx.drawImage(this.videoElement, 0, 0);
+
+    // Convertir el lienzo a datos de imagen
+    const imgData = canvas.toDataURL('image/jpeg');
+    return imgData;
+  }*/
 
   startDataCollection(index: number) {
     if (!this.collectingData) {

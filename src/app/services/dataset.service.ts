@@ -12,7 +12,7 @@ export class DatasetService {
 
   addItem(label: string): void {
     let index = this.dataset.length;
-    this.dataset.push({ index, label, images: [], imagesCount: 0 });
+    this.dataset.push({ index, label, images: [], webcamImages: [], imagesCount: 0 });
   }
 
   removeItem(index: number): void {
@@ -31,9 +31,10 @@ export class DatasetService {
     this.dataset = [];
   }
 
-  addImageItem(index: number, url: string): void {
+  addImageItem(index: number, handDetectionImage: string, webcamImage: string): void {
     let item = this.dataset.at(index);
-    item.images.push(url);
+    item.images.push(handDetectionImage);
+    item.webcamImages.push(webcamImage);
     item.imagesCount = item.images.length;
   }
 

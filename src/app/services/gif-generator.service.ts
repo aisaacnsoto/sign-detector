@@ -10,23 +10,20 @@ export class GifGeneratorService {
 
   generateGif(imageBase64Array: string[]): Promise<string> {
     return new Promise((resolve) => {
-
-      
-
-      const gif = new GIF({
+      let gif = new GIF({
         workers: 2,
         workerScript: this.getWorkerURL(),
         quality: 10
       });
 
       imageBase64Array.forEach(imageBase64 => {
-        const img = new Image();
+        let img = new Image();
         img.src = imageBase64;
         gif.addFrame(img, {delay: 10});
       });
 
       gif.on('finished', (blob) => {
-        const url = URL.createObjectURL(blob);
+        let url = URL.createObjectURL(blob);
         resolve(url);
       });
 

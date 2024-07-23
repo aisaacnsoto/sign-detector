@@ -4,4 +4,5 @@ export interface DatasetItem {
     images?: string[];
     imagesCount?: number;
     imageGif?: string;
+    webcamImages?: string[];
 }

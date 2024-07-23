@@ -27,6 +27,8 @@ export class TrainingStep4PageComponent implements OnInit {
     if (this.dataset.length > 0) {
       this.dataset.forEach(item => {
         if (item.imagesCount > 0) {
+          //console.log('item.webcamImages');
+          //console.log(item.webcamImages);
           this._gifGeneratorService.generateGif(item.images).then(url => {
             item.imageGif = url;
           });

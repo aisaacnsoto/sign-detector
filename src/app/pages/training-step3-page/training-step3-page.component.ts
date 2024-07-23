@@ -54,7 +54,7 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   setSignClassificationService() {
-    this.signClassificationService.setCanvas(this.canvasEl.nativeElement);
+    this.signClassificationService.setElements(this.canvasEl.nativeElement, this.videoEl.nativeElement);
   }
 
   startCamera = async () => {

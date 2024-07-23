@@ -39,7 +39,7 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
     this.addEvents();
     this.startCamera();
 
-    this.signClassificationService.setCanvas(this.canvasEl.nativeElement);
+    this.signClassificationService.setElements(this.canvasEl.nativeElement, this.videoEl.nativeElement);
   }
 
   getParamsFromURL() {
