@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import GIF from 'gif.js';
+import * as gifshot from 'gifshot';
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +10,17 @@ export class GifGeneratorService {
 
   generateGif(imageBase64Array: string[]): Promise<string> {
     return new Promise((resolve) => {
-      let gif = new GIF({
-        workers: 2,
-        workerScript: this.getWorkerURL(),
-        quality: 10
+      gifshot.createGIF({
+        'gifWidth': 200,
+        'gifHeight': 200,
+        'images': imageBase64Array
+      },(obj) => {
+        if(!obj.error) {
+          resolve(obj.image);
+        } else {
+          resolve('');
+        }
       });
-
-      imageBase64Array.forEach(imageBase64 => {
-        let img = new Image();
-        img.src = imageBase64;
-        gif.addFrame(img, {delay: 10});
-      });
-
-      gif.on('finished', (blob) => {
-        let url = URL.createObjectURL(blob);
-        resolve(url);
-      });
-
-      gif.on('abort', () => {
-        resolve('abort gif.js');
-      });
-
-      gif.render();
     });
   }
 
