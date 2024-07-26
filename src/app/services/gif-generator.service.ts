@@ -24,17 +24,9 @@ export class GifGeneratorService {
     });
   }
 
-  private getWorkerURL() {
-    const protocol = window.location.protocol; // 'http:' o 'https:'
-    const domain = window.location.hostname; // 'example.com'
-    const port = window.location.port; // '8080' si existe, de lo contrario estará vacío
-
-    // Construir la URL base
-    let baseUrl = `${protocol}//${domain}`;
-    if (port) {
-      baseUrl += `:${port}`;
-    }
-
-    return `${baseUrl}/assets/gif.worker.js`;
+  private getHostURL() {
+    const protocol = window.location.protocol;
+    const domain = window.location.host;
+    return `${protocol}//${domain}`;
   }
 }

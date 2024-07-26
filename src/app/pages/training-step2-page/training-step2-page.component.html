@@ -5,8 +5,8 @@
     <video #webcam autoplay></video>
 </div>
 
-<p-button #dataCollector label="Iniciar" [rounded]="true" (onClick)="onDataCollectClick()"></p-button>
-<p-button #back label="Regresar" [rounded]="true" (onClick)="onBackClick()"></p-button>
+<p-button [label]="collectBtn.label" [rounded]="true" (onClick)="onDataCollectClick()"></p-button>
+<p-button *ngIf="backBtn.visible" [label]="backBtn.label" [rounded]="true" (onClick)="onBackClick()"></p-button>
 <br />
 <br />
 <h5>{{item.label}}</h5>

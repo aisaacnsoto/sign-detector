@@ -16,8 +16,9 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
 
   @ViewChild('webcam') videoEl: ElementRef<HTMLVideoElement>;
   @ViewChild('output_canvas') canvasEl: ElementRef<HTMLCanvasElement>;
-  @ViewChild('dataCollector') dataCollectorEl: Button;
-  @ViewChild('back') backEl: Button;
+
+  collectBtn = { label: 'Iniciar' };
+  backBtn = { label: 'Regresar', visible: true };
 
   item: DatasetItem;
   collectingData: boolean;
@@ -67,13 +68,13 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
 
     if (this.collectingData) {
       this.signClassificationService.startDataCollection(this.item.index);
-      this.dataCollectorEl.label = 'Detener';
-      this.backEl.style = {'display': 'none'};
+      this.collectBtn.label = 'Detener';
+      this.backBtn.visible = false;
     } else {
       this.signClassificationService.stopDataCollection();
-      this.dataCollectorEl.label = 'Iniciar';
-      this.backEl.style = {'display': 'block'};
-      this.backEl.label = 'Listo';
+      this.collectBtn.label = 'Iniciar';
+      this.backBtn.label = 'Listo';
+      this.backBtn.visible = true;
     }
   }
 

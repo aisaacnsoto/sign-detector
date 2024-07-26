@@ -49,8 +49,10 @@ export class SignClassificationService {
 
   async loadMobileNetFeatureModel() {
     console.log('Awaiting TF.js load...');
-    const URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
-    this.mobilenet = await tf.loadGraphModel(URL, { fromTFHub: true });
+    //const URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
+    const URL = `${window.location.protocol}//${window.location.host}/assets/mobilenet/model.json`;
+    //this.mobilenet = await tf.loadGraphModel(URL, { fromTFHub: true });
+    this.mobilenet = await tf.loadGraphModel(URL);
     console.log('MobileNet v3 loaded successfully!');
 
     tf.tidy(() => {
