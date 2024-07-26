@@ -5,7 +5,7 @@ import { DatasetService } from 'src/app/services/dataset.service';
 import { HandDetectionService } from 'src/app/services/hand-detection.service';
 import { SignClassificationService } from 'src/app/services/sign-classification.service';
 import { WebcamService } from 'src/app/services/webcam.service';
-
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-training-step2-page',
@@ -16,8 +16,8 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
 
   @ViewChild('webcam') videoEl: ElementRef<HTMLVideoElement>;
   @ViewChild('output_canvas') canvasEl: ElementRef<HTMLCanvasElement>;
-  @ViewChild('dataCollector') dataCollectorEl: ElementRef<HTMLButtonElement>;
-  @ViewChild('back') backEl: ElementRef<HTMLButtonElement>;
+  @ViewChild('dataCollector') dataCollectorEl: Button;
+  @ViewChild('back') backEl: Button;
 
   item: DatasetItem;
   collectingData: boolean;
@@ -36,7 +36,6 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngAfterViewInit() {
-    this.addEvents();
     this.startCamera();
 
     this.signClassificationService.setElements(this.canvasEl.nativeElement, this.videoEl.nativeElement);
@@ -54,11 +53,6 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
     this.webcamService.stopCamera();
   }
 
-  addEvents() {
-    this.dataCollectorEl.nativeElement.addEventListener('click', this.onDataCollectClick);
-    this.backEl.nativeElement.addEventListener('click', this.onBackClick);
-  }
-
   startCamera = async () => {
     try {
       await this.webcamService.initializeCamera(this.videoEl.nativeElement);
@@ -73,13 +67,13 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
 
     if (this.collectingData) {
       this.signClassificationService.startDataCollection(this.item.index);
-      this.dataCollectorEl.nativeElement.textContent = 'Detener';
-      this.backEl.nativeElement.style.display = 'none';
+      this.dataCollectorEl.label = 'Detener';
+      this.backEl.style = {'display': 'none'};
     } else {
       this.signClassificationService.stopDataCollection();
-      this.dataCollectorEl.nativeElement.textContent = 'Iniciar';
-      this.backEl.nativeElement.style.display = 'block';
-      this.backEl.nativeElement.textContent = 'Listo';
+      this.dataCollectorEl.label = 'Iniciar';
+      this.backEl.style = {'display': 'block'};
+      this.backEl.label = 'Listo';
     }
   }
 

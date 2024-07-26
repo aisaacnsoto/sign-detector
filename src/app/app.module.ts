@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,10 @@ import { TrainingStep3PageComponent } from './pages/training-step3-page/training
 import { TrainingStep4PageComponent } from './pages/training-step4-page/training-step4-page.component';
 import { GifGeneratorService } from './services/gif-generator.service';
 
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +28,11 @@ import { GifGeneratorService } from './services/gif-generator.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    InputTextModule,
+    ButtonModule,
+    CardModule,
   ],
   providers: [
     WebcamService,

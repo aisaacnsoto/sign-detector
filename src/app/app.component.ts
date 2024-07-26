@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SignClassificationService } from './services/sign-classification.service';
 import { HandDetectionService } from './services/hand-detection.service';
 import { WebcamService } from './services/webcam.service';
+import { PrimeNGConfig } from 'primeng/api';
 
 
 @Component({
@@ -15,9 +16,11 @@ export class AppComponent implements OnInit {
     private _handDetectionService: HandDetectionService,
     private _signClassificationService: SignClassificationService,
     private _webcamService: WebcamService,
+    private primengConfig: PrimeNGConfig
     ) {}
 
   async ngOnInit() {
+    this.primengConfig.ripple = true;
     await this._handDetectionService.createHandLandmarker();
     await this._signClassificationService.loadMobileNetFeatureModel();
 

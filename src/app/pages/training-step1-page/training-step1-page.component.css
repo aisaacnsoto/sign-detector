@@ -28,17 +28,17 @@ body {
     padding: 1rem;
 }
 
-.class-container {
+.word-container {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
 }
 
-.class-container input {
+.word-container input {
     flex: 1;
-    padding: 0.5rem;
+    padding-left: 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 50px;
     margin-right: 0.5rem;
 }
 
@@ -57,27 +57,27 @@ button:hover {
     background: #3700b3;
 }
 
-.class-list {
+.word-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.class-card {
+.word-card {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
 }
 
-.class-header {
+.word-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
 
-.class-header h2 {
+.word-header h2 {
     margin: 0;
     font-size: 1.25rem;
 }
@@ -92,7 +92,7 @@ button:hover {
     gap: 0.5rem;
 }
 
-.class-card img {
+.word-card img {
     width: 60px;
     height: 60px;
     border-radius: 4px;

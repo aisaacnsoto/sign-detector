@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angula
 import { Router } from '@angular/router';
 import { DatasetItem } from 'src/app/interfaces/dataset-item';
 import { DatasetService } from 'src/app/services/dataset.service';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-training-step1-page',
@@ -11,8 +12,6 @@ import { DatasetService } from 'src/app/services/dataset.service';
 export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('newClassNameInput') newClassNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild('addClassButton') addClassButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('trainButton') trainButton: ElementRef<HTMLButtonElement>;
   @ViewChild('divGif') divGif: ElementRef<HTMLDivElement>;
   dataset: DatasetItem[] = [];
   readyToTrain: boolean = false;
@@ -29,11 +28,9 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit() {
-    this.addClassButton.nativeElement.addEventListener('click', this.onAddClassClick);
-    this.trainButton.nativeElement.addEventListener('click', this.onTrainClick);
   }
 
-  private onAddClassClick = () => {
+  onAddClassClick = () => {
     const className = this.newClassNameInput.nativeElement.value;
     if (className) {
       this._datasetService.addItem(className);
@@ -42,7 +39,7 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private onTrainClick = () => {
+  onTrainClick = () => {
     this.router.navigate(['/training-step3']);
   }
 

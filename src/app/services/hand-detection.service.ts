@@ -55,8 +55,6 @@ export class HandDetectionService {
 
       let canvasCtx = this.canvasElement.getContext("2d");
       let position = this.videoElement.getBoundingClientRect();
-      this.canvasElement.style.top = position.top + 'px';
-      this.canvasElement.style.left = position.left + 'px';
       this.canvasElement.style.width = this.videoElement.videoWidth.toString();
       this.canvasElement.style.height = this.videoElement.videoHeight.toString();
       this.canvasElement.width = this.videoElement.videoWidth;
