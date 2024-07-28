@@ -6,9 +6,9 @@
         <p-card *ngFor="let item of dataset">
             <div class="item-content">
                 <div class="item-label">
-                    <p>{{item.label}}</p>
+                    <p>{{item.word_label}}</p>
                 </div>
-                <img class="item-gif" [src]="item.image_gif" *ngIf="item.image_gif">
+                <img class="item-gif" [src]="item.word_gif" *ngIf="item.word_gif">
             </div>
         </p-card>
     </div>

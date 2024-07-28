@@ -32,8 +32,8 @@ input {
 }
 
 .page-content {
-    min-height: calc(100vh - --footer-height);
-    padding-bottom: --footer-height;
+    min-height: calc(100vh - 67px); /*mismo ancho de footer (67px)*/
+    padding-bottom: 67px; /*mismo ancho de footer (67px)*/
     box-sizing: border-box;
 }
 
@@ -46,5 +46,5 @@ input {
     text-align: center;
     padding: 10px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    height: --footer-height;
+    height: 67px; /*mismo ancho de footer (67px)*/
 }

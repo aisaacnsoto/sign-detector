@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatasetItem } from 'src/app/interfaces/dataset-item';
+import { DatasetWord } from 'src/app/interfaces/dataset-word';
 import { DatasetJson } from 'src/app/interfaces/dataset-json';
 import { DatasetService } from 'src/app/services/dataset.service';
 import { GifGeneratorService } from 'src/app/services/gif-generator.service';
@@ -21,7 +21,7 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   @ViewChild('output_canvas') canvasEl: ElementRef<HTMLCanvasElement>;
   @ViewChild('status') statusEl: ElementRef;
 
-  dataset: DatasetItem[] = [];
+  dataset: DatasetWord[] = [];
   predicting: boolean;
 
   constructor(
@@ -39,7 +39,7 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngAfterViewInit() {
-    this.dataset = this.datasetService.getItems();
+    this.dataset = this.datasetService.getWords();
     this.setSignClassificationService();
     this.startCamera();
     this.trainAndPredict();
@@ -76,7 +76,7 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
     
     this.signClassificationService.itemPrediction.subscribe((prediction) => {
       if (prediction) {
-        this.statusEl.nativeElement.textContent = prediction.label;
+        this.statusEl.nativeElement.textContent = prediction.word_label;
       }
     });
   }
@@ -93,9 +93,9 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   async generateGifs() {
     if (this.dataset.length > 0) {
       for (let index = 0; index < this.dataset.length; index++) {
-        if (this.dataset[index].images_count > 0) {
-          let url = await this.gifGeneratorService.generateGif(this.dataset[index].webcam_images);
-          this.dataset[index].image_gif = url;
+        if (this.dataset[index].frames_count > 0) {
+          let url = await this.gifGeneratorService.generateGif(this.dataset[index].webcam_frames);
+          this.dataset[index].word_gif = url;
         }
       }
     }
@@ -106,7 +106,8 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
       sections: [
         {
           section_index: 0,
-          section_label: 'Sección 1'
+          section_label: 'Sección 1',
+          words_count: 0
         }
       ],
       words: this.dataset

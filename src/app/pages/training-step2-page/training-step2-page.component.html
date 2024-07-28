@@ -10,12 +10,12 @@
         <p-button *ngIf="backBtn.visible" [label]="backBtn.label" [rounded]="true" (onClick)="onBackClick()"></p-button>
     </div>
     <div class="label-section">
-        <p>{{item.label}}</p>
+        <p>{{item.word_label}}</p>
     </div>
     <div class="image-count-section">
-        <p>{{item.images_count}} fotos</p>
+        <p>{{item.frames_count}} fotos</p>
     </div>
     <div class="photo-container">
-        <img [src]="image" *ngFor="let image of item.images">
+        <img [src]="image" *ngFor="let image of item.hand_landmark_frames">
     </div>
 </div>

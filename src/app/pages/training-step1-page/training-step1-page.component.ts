@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DatasetItem } from 'src/app/interfaces/dataset-item';
+import { DatasetSection } from 'src/app/interfaces/dataset-section';
+import { DatasetWord } from 'src/app/interfaces/dataset-word';
 import { DatasetService } from 'src/app/services/dataset.service';
-import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-training-step1-page',
@@ -13,14 +13,18 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('newClassNameInput') newClassNameInput: ElementRef<HTMLInputElement>;
   @ViewChild('divGif') divGif: ElementRef<HTMLDivElement>;
-  dataset: DatasetItem[] = [];
+
   readyToTrain: boolean = false;
+  words: DatasetWord[] = [];
+  sections: DatasetSection[] = [];
+  selectedSection: DatasetSection;
 
   constructor(
     private router: Router,
     private _datasetService: DatasetService
     ) {
-    this.dataset = this._datasetService.getItems();
+    this.words = this._datasetService.getWords();
+    this.sections = this._datasetService.getSections();
   }
 
   ngOnInit() {
@@ -32,8 +36,8 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
 
   onAddClassClick = () => {
     let className = this.newClassNameInput.nativeElement.value;
-    if (className) {
-      this._datasetService.addItem(className);
+    if (className && this.selectedSection) {
+      this._datasetService.addWord(className, this.selectedSection.section_index);
       this.newClassNameInput.nativeElement.value = '';
       this.newClassNameInput.nativeElement.focus();
 
@@ -41,15 +45,19 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onAddSectionClick = () => {
+    this.router.navigate(['/training-add-section']);
+  }
+
   onTrainClick = () => {
     this.router.navigate(['/training-step3']);
   }
 
   showTrainButton() {
-    if (this.dataset.length > 1) {
+    if (this.words.length > 1) {
       let errorCount = 0;
-      for (let i = 0; i < this.dataset.length; i++) {
-        if (this.dataset[i].images_count == 0) {
+      for (let i = 0; i < this.words.length; i++) {
+        if (this.words[i].frames_count == 0) {
           errorCount++;
         }
 
@@ -62,6 +70,10 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
     } else {
       this.readyToTrain = false;
     }
+  }
+
+  getSectionWords(section_index: number): DatasetWord[] {
+    return this._datasetService.getSectionWords(section_index);
   }
 
 }

@@ -1,0 +1,26 @@
+:host ::ng-deep .page-footer button,
+:host ::ng-deep p-card {
+    width: 100%;
+}
+
+:host ::ng-deep .p-card-content {
+    padding: 0px;
+}
+
+.section-add {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.section-add input {
+    width: 100%;
+}
+
+.section-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}

@@ -1,0 +1,20 @@
+<div class="page-header">
+    <h1>Secciones</h1>
+</div>
+<div class="page-content">
+    <div class="section-add">
+        <input type="text" class="input-text" #sectionLabelInput pInputText placeholder="Etiqueta de la sección" />
+        <p-button label="Agregar" [rounded]="true" (onClick)="onAddClick()"></p-button>
+    </div>
+    <div class="section-count">
+        <p>Total: {{sections.length}} secciones</p>
+    </div>
+    <div class="section-list">
+        <p-card *ngFor="let section of sections">
+            <p class="item-label">{{section.section_label}}</p>
+        </p-card>
+    </div>
+</div>
+<div class="page-footer">
+    <p-button class="train-button" #trainButton label="Listo" [rounded]="true" (onClick)="onBackClick()"></p-button>
+</div>

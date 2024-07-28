@@ -3,11 +3,37 @@
     width: 100%;
 }
 
+:host ::ng-deep .p-card-content {
+    padding: 0px;
+}
+
+.section-select {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+:host ::ng-deep .section-select p-dropdown,
+:host ::ng-deep .section-select .p-dropdown {
+    width: 100%;
+}
+
+:host ::ng-deep .section-select .p-dropdown {
+    border-radius: 50px;
+}
+
+:host ::ng-deep .section-select .p-dropdown-label {
+    box-shadow: none;
+}
+
 .word-add {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
     gap: 8px;
+}
+
+.word-add input {
+    width: 100%;
 }
 
 .item-label {
@@ -19,10 +45,6 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 8px;
-}
-
-input {
-    width: 100%;
 }
 
 .item-images-section {
@@ -42,10 +64,6 @@ input {
     display: block;
 }
 
-:host ::ng-deep .p-card-content {
-    padding: 0px;
-}
-
 .word-list {
     width: 100%;
     display: flex;
@@ -53,6 +71,19 @@ input {
     gap: 8px;
     align-items: center;
 }
+
 .word-count {
     margin-bottom: 8px;
+}
+
+.section-tile, .section-tile-content {
+    width: 100%;
+}
+
+.section-tile-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
 }

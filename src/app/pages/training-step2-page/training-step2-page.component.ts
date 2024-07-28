@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatasetItem } from 'src/app/interfaces/dataset-item';
+import { DatasetWord } from 'src/app/interfaces/dataset-word';
 import { DatasetService } from 'src/app/services/dataset.service';
 import { HandDetectionService } from 'src/app/services/hand-detection.service';
 import { SignClassificationService } from 'src/app/services/sign-classification.service';
@@ -20,7 +20,7 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
   collectBtn = { label: 'Iniciar' };
   backBtn = { label: 'Regresar', visible: true };
 
-  item: DatasetItem;
+  item: DatasetWord;
   collectingData: boolean;
 
   constructor(
@@ -45,7 +45,7 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
   getParamsFromURL() {
     this.route.paramMap.subscribe(params => {
       let index = parseInt(params.get('index'));
-      this.item = this.datasetService.getItem(index);
+      this.item = this.datasetService.getWord(index);
     });
   }
 
@@ -67,7 +67,7 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
     this.collectingData = !this.collectingData;
 
     if (this.collectingData) {
-      this.signClassificationService.startDataCollection(this.item.index);
+      this.signClassificationService.startDataCollection(this.item.word_index);
       this.collectBtn.label = 'Detener';
       this.backBtn.visible = false;
     } else {
@@ -81,19 +81,5 @@ export class TrainingStep2PageComponent implements OnInit, OnDestroy, AfterViewI
   onBackClick = () => {
     this.router.navigate(['/training-step1']);
   }
-
-  /*trainAndPredict = async () => {
-    await this.signClassificationService.train();
-    this.signClassificationService.predict();
-  }
-
-  reset = () => {
-    this.signClassificationService.reset();
-  }
-
-  download = async () => {
-    let url = await this.signClassificationService.save('mi-modelo-entrenado');
-    console.log('modelo descargado en: '+url);
-  }*/
 
 }

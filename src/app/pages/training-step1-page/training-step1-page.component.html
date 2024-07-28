@@ -2,28 +2,37 @@
     <h1>Entrenamiento</h1>
 </div>
 <div class="page-content">
+    <div class="section-select">
+        <p-dropdown [options]="sections" [(ngModel)]="selectedSection" optionLabel="section_label" placeholder="Selecciona una sección"></p-dropdown>
+        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="onAddSectionClick()"></p-button>
+    </div>
     <div class="word-add">
         <input type="text" class="input-text" #newClassNameInput pInputText placeholder="Ingresa una palabra" />
-        <p-button #addClassButton label="Agregar" [rounded]="true" (onClick)="onAddClassClick()"></p-button>
+        <p-button label="Agregar" [rounded]="true" (onClick)="onAddClassClick()"></p-button>
     </div>
     <div class="word-count">
-        <p>Total: {{dataset.length}} palabras</p>
+        <p>Total: {{words.length}} palabras</p>
     </div>
     <div class="word-list">
-        <p-card *ngFor="let item of dataset">
-            <p class="item-label">{{item.label}}</p>
-            <div class="item-images-count">
-                <p>{{item.images_count}} fotos</p>
-                <p-button icon="pi pi-camera" [routerLink]="'/training-step2/'+item.index" class="camera-button"></p-button>
+        <div class="section-tile" *ngFor="let section of sections">
+            <div class="section-tile-content" *ngIf="section.words_count > 0">
+                <p class="item-label">Sección "{{section.section_label}}"</p>
+                <p-card *ngFor="let word of getSectionWords(section.section_index)">
+                    <p class="item-label">{{word.word_label}}</p>
+                    <div class="item-images-count">
+                        <p>{{word.frames_count}} fotos</p>
+                        <p-button icon="pi pi-camera" [routerLink]="'/training-step2/'+word.word_index" class="camera-button"></p-button>
+                    </div>
+                    <div class="item-images-section" *ngIf="word.frames_count > 0">
+                        <div *ngFor="let i of [0, 1, 2, 3, 4]">
+                            <img [src]="word.hand_landmark_frames[i]" *ngIf="word.hand_landmark_frames[i]" class="image">
+                        </div>
+                    </div>
+                </p-card>
             </div>
-            <div class="item-images-section" *ngIf="item.images_count > 0">
-                <div *ngFor="let i of [0, 1, 2, 3, 4]">
-                    <img [src]="item.images[i]" *ngIf="item.images[i]" class="image">
-                </div>
-            </div>
-        </p-card>
+        </div>
     </div>
 </div>
 <div class="page-footer" *ngIf="readyToTrain">
-    <p-button class="train-button" #trainButton label="Entrenar" [disabled]="!readyToTrain" [rounded]="true" (onClick)="onTrainClick()"></p-button>
+    <p-button class="train-button" label="Entrenar" [disabled]="!readyToTrain" [rounded]="true" (onClick)="onTrainClick()"></p-button>
 </div>

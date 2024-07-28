@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
 import { DatasetService } from './dataset.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DatasetItem } from '../interfaces/dataset-item';
+import { DatasetWord } from '../interfaces/dataset-word';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class SignClassificationService {
 
   private canvasElement: HTMLCanvasElement;
   private videoElement: HTMLVideoElement;
-  private index: number;
+  private word_index: number;
   
   private MOBILE_NET_INPUT_WIDTH = 224;
   private MOBILE_NET_INPUT_HEIGHT = 224;
@@ -28,9 +28,9 @@ export class SignClassificationService {
   private trainingDataInputs = [];
   private trainingDataOutputs = [];
 
-  private itemPredictionSubject = new BehaviorSubject<DatasetItem>(null);
-  private _itemPrediction: DatasetItem;
-  itemPrediction: Observable<DatasetItem> = this.itemPredictionSubject.asObservable();
+  private itemPredictionSubject = new BehaviorSubject<DatasetWord>(null);
+  private _itemPrediction: DatasetWord;
+  itemPrediction: Observable<DatasetWord> = this.itemPredictionSubject.asObservable();
 
   constructor(private datasetService: DatasetService) { }
 
@@ -64,13 +64,13 @@ export class SignClassificationService {
   private constructModel() {
     this.model = tf.sequential();
     this.model.add(tf.layers.dense({ inputShape: [1024], units: 128, activation: 'relu' }));
-    this.model.add(tf.layers.dense({ units: this.datasetService.getItems().length, activation: 'softmax' }));
+    this.model.add(tf.layers.dense({ units: this.datasetService.getWords().length, activation: 'softmax' }));
 
     this.model.summary();
 
     this.model.compile({
       optimizer: 'adam',
-      loss: (this.datasetService.getItems().length === 2) ? 'binaryCrossentropy' : 'categoricalCrossentropy',
+      loss: (this.datasetService.getWords().length === 2) ? 'binaryCrossentropy' : 'categoricalCrossentropy',
       metrics: ['accuracy']
     });
   }
@@ -81,7 +81,7 @@ export class SignClassificationService {
     tf.util.shuffleCombo(this.trainingDataInputs, this.trainingDataOutputs);
 
     let outputsAsTensor = tf.tensor1d(this.trainingDataOutputs, 'int32');
-    let oneHotOutputs = tf.oneHot(outputsAsTensor, this.datasetService.getItems().length);
+    let oneHotOutputs = tf.oneHot(outputsAsTensor, this.datasetService.getWords().length);
     let inputsAsTensor = tf.stack(this.trainingDataInputs);
 
     let results = await this.model.fit(inputsAsTensor, oneHotOutputs, {
@@ -115,8 +115,8 @@ export class SignClassificationService {
           let predictionArray = prediction.arraySync();
           let confidencePercentage = Math.floor(predictionArray[highestIndex] * 100);
           
-          let datasetItem = this.datasetService.getItem(highestIndex);
-          if (!this._itemPrediction || this._itemPrediction.index != highestIndex) {
+          let datasetItem = this.datasetService.getWord(highestIndex);
+          if (!this._itemPrediction || this._itemPrediction.word_index != highestIndex) {
             this._itemPrediction = datasetItem;
             this.itemPredictionSubject.next(datasetItem);
           }
@@ -149,7 +149,7 @@ export class SignClassificationService {
     let handDetectionImageURL = this.getHandDetectionImageURL();
     let webcamImageURL = this.getWebcamImageURL();
 
-    this.datasetService.addImageItem(this.index, handDetectionImageURL, webcamImageURL);
+    this.datasetService.addWordFrames(this.word_index, handDetectionImageURL, webcamImageURL);
   }
 
   private getHandDetectionImageURL() {
@@ -191,7 +191,7 @@ export class SignClassificationService {
   startDataCollection(index: number) {
     if (!this.collectingData) {
       this.collectingData = true;
-      this.index = index;
+      this.word_index = index;
       this._dataCollectionLoop();
     }
   }
@@ -201,7 +201,7 @@ export class SignClassificationService {
       if (this.handsDetected) {
         let imageFeatures = this.calculateFeaturesOnCurrentFrame(true);
         this.trainingDataInputs.push(imageFeatures);
-        this.trainingDataOutputs.push(this.index);
+        this.trainingDataOutputs.push(this.word_index);
       }
 
       window.requestAnimationFrame(this._dataCollectionLoop);
@@ -215,7 +215,7 @@ export class SignClassificationService {
   reset() {
     this.collectingData = false;
     this.predictionInProcess = false;
-    this.datasetService.clearItems();
+    this.datasetService.clearWords();
     for (let i = 0; i < this.trainingDataInputs.length; i++) {
       this.trainingDataInputs[i].dispose();
     }

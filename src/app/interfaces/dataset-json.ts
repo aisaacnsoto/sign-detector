@@ -1,7 +1,7 @@
-import { DatasetItem } from "./dataset-item";
+import { DatasetWord } from "./dataset-word";
 import { DatasetSection } from "./dataset-section";
 
 export interface DatasetJson {
     sections: DatasetSection[];
-    words: DatasetItem[];
+    words: DatasetWord[];
 }

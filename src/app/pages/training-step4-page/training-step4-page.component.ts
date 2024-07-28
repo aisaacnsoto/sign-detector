@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatasetItem } from 'src/app/interfaces/dataset-item';
+import { DatasetWord } from 'src/app/interfaces/dataset-word';
 import { JsonFileService } from 'src/app/services/json-file.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { JsonFileService } from 'src/app/services/json-file.service';
 })
 export class TrainingStep4PageComponent implements OnInit {
 
-  dataset: DatasetItem[] = [];
+  dataset: DatasetWord[] = [];
 
   constructor(
     private _jsonFileService: JsonFileService

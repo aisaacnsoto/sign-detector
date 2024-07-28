@@ -4,11 +4,16 @@ import { TrainingStep1PageComponent } from './pages/training-step1-page/training
 import { TrainingStep2PageComponent } from './pages/training-step2-page/training-step2-page.component';
 import { TrainingStep3PageComponent } from './pages/training-step3-page/training-step3-page.component';
 import { TrainingStep4PageComponent } from './pages/training-step4-page/training-step4-page.component';
+import { TrainingAddSectionPageComponent } from './pages/training-add-section-page/training-add-section-page.component';
 
 const routes: Routes = [
   {
     path: 'training-step1',
     component: TrainingStep1PageComponent
+  },
+  {
+    path: 'training-add-section',
+    component: TrainingAddSectionPageComponent
   },
   {
     path: 'training-step2/:index',
