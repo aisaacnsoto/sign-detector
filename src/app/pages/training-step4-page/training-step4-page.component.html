@@ -1,10 +1,15 @@
-<div id="class-list" class="class-list">
-    <div class="class-card" *ngFor="let item of dataset">
-        <div class="class-header">
-            <h2>{{item.label}}</h2>
-        </div>
-        <div class="photo-container">
-            <img [src]="item.imageGif" *ngIf="item.imageGif">
-        </div>
+<div class="page-header">
+    <h1>Nombre de sección</h1>
+</div>
+<div class="page-content">
+    <div class="word-list">
+        <p-card *ngFor="let item of dataset">
+            <div class="item-content">
+                <div class="item-label">
+                    <p>{{item.label}}</p>
+                </div>
+                <img class="item-gif" [src]="item.image_gif" *ngIf="item.image_gif">
+            </div>
+        </p-card>
     </div>
 </div>

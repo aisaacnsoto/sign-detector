@@ -1,0 +1,58 @@
+:host ::ng-deep .page-footer button,
+:host ::ng-deep p-card {
+    width: 100%;
+}
+
+.word-add {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.item-label {
+    font-weight: bold;
+}
+
+.item-images-count {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+input {
+    width: 100%;
+}
+
+.item-images-section {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.item-images-section div {
+    flex: 1;
+}
+
+.item-images-section img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+:host ::ng-deep .p-card-content {
+    padding: 0px;
+}
+
+.word-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+.word-count {
+    margin-bottom: 8px;
+}

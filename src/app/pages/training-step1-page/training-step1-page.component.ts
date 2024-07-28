@@ -31,11 +31,13 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
   }
 
   onAddClassClick = () => {
-    const className = this.newClassNameInput.nativeElement.value;
+    let className = this.newClassNameInput.nativeElement.value;
     if (className) {
       this._datasetService.addItem(className);
       this.newClassNameInput.nativeElement.value = '';
       this.newClassNameInput.nativeElement.focus();
+
+      this.showTrainButton();
     }
   }
 
@@ -47,9 +49,10 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
     if (this.dataset.length > 1) {
       let errorCount = 0;
       for (let i = 0; i < this.dataset.length; i++) {
-        if (this.dataset[i].imagesCount == 0) {
+        if (this.dataset[i].images_count == 0) {
           errorCount++;
         }
+
       }
       if (errorCount == 0) {
         this.readyToTrain = true;

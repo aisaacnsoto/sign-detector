@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HandDetectionService } from './services/hand-detection.service';
 import { WebcamService } from './services/webcam.service';
@@ -30,6 +31,7 @@ import { CardModule } from 'primeng/card';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     InputTextModule,
     ButtonModule,
     CardModule,

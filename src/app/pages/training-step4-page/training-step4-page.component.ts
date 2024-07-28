@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatasetItem } from 'src/app/interfaces/dataset-item';
-import { DatasetService } from 'src/app/services/dataset.service';
-import { GifGeneratorService } from 'src/app/services/gif-generator.service';
+import { JsonFileService } from 'src/app/services/json-file.service';
 
 @Component({
   selector: 'app-training-step4-page',
@@ -13,26 +12,17 @@ export class TrainingStep4PageComponent implements OnInit {
   dataset: DatasetItem[] = [];
 
   constructor(
-    private _datasetService: DatasetService,
-    private _gifGeneratorService: GifGeneratorService
-    ) {}
+    private _jsonFileService: JsonFileService
+  ) {}
   
   ngOnInit() {
-    this.dataset = this._datasetService.getItems();
-    
-    this.generateGifs();
-  }
-
-  generateGifs() {
-    if (this.dataset.length > 0) {
-      this.dataset.forEach(item => {
-        if (item.imagesCount > 0) {
-          this._gifGeneratorService.generateGif(item.webcamImages).then(url => {
-            item.imageGif = url;
-          });
-        }
-      });
-    }
+    this._jsonFileService.loadArrayFromJson('dataset.json').then(result => {
+      this.dataset = result.words;
+      this.dataset[2] = result.words[0];
+      this.dataset[3] = result.words[1];
+    }).catch(reason => {
+      console.log('error', reason);
+    });
   }
 
 }

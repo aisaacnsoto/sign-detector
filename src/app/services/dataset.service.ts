@@ -8,11 +8,14 @@ export class DatasetService {
 
   private dataset: DatasetItem[] = [];
 
-  constructor() {}
+  constructor() {
+    this.addItem('Item A');
+    this.addItem('Item B');
+  }
 
   addItem(label: string): void {
     let index = this.dataset.length;
-    this.dataset.push({ index, label, images: [], webcamImages: [], imagesCount: 0 });
+    this.dataset.push({ index, label, images: [], webcam_images: [], images_count: 0 });
   }
 
   removeItem(index: number): void {
@@ -34,8 +37,8 @@ export class DatasetService {
   addImageItem(index: number, handDetectionImage: string, webcamImage: string): void {
     let item = this.dataset.at(index);
     item.images.push(handDetectionImage);
-    item.webcamImages.push(webcamImage);
-    item.imagesCount = item.images.length;
+    item.webcam_images.push(webcamImage);
+    item.images_count = item.images.length;
   }
 
 }

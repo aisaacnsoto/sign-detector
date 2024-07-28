@@ -2,7 +2,7 @@ export interface DatasetItem {
     index: number;
     label: string;
     images?: string[];
-    imagesCount?: number;
-    imageGif?: string;
-    webcamImages?: string[];
+    images_count?: number;
+    image_gif?: string;
+    webcam_images?: string[];
 }

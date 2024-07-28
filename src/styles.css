@@ -2,3 +2,49 @@
 @import "primeng/resources/themes/tailwind-light/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
+* {
+    margin: 0px;
+    --footer-height: 67px;
+}
+
+.page-header, .page-content, .page-footer {
+    width: 100%;
+}
+
+.page-header {
+    padding: 8px 8px 0px 8px;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+}
+
+.page-footer {
+    padding: 0px 8px 8px 8px;
+}
+
+input {
+    border-radius: 30px;
+}
+
+.page-content {
+    min-height: calc(100vh - --footer-height);
+    padding-bottom: --footer-height;
+    box-sizing: border-box;
+}
+
+.page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    height: --footer-height;
+}

@@ -3,6 +3,7 @@ import { SignClassificationService } from './services/sign-classification.servic
 import { HandDetectionService } from './services/hand-detection.service';
 import { WebcamService } from './services/webcam.service';
 import { PrimeNGConfig } from 'primeng/api';
+import { DatasetService } from './services/dataset.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
     private _handDetectionService: HandDetectionService,
     private _signClassificationService: SignClassificationService,
     private _webcamService: WebcamService,
+    private _datasetService: DatasetService,
     private primengConfig: PrimeNGConfig
     ) {}
 

@@ -1,0 +1,58 @@
+.webcam-section, .canvas-section {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.canvas-section {
+    position: absolute;
+}
+
+/* video, canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+} */
+
+video, canvas {
+    height: auto;
+    object-fit: contain;
+}
+
+video {
+    background-color: white;
+}
+
+.actions-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label-section {
+    font-weight: bold;
+}
+
+/* .photo-container {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+.photo-container img {
+    height: 90px;
+} */
+
+
+.photo-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 4px;
+}
+
+.photo-container img {
+    height: 100px;
+    object-fit: cover;
+}

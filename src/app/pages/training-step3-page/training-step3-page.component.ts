@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatasetItem } from 'src/app/interfaces/dataset-item';
+import { DatasetJson } from 'src/app/interfaces/dataset-json';
 import { DatasetService } from 'src/app/services/dataset.service';
+import { GifGeneratorService } from 'src/app/services/gif-generator.service';
 import { HandDetectionService } from 'src/app/services/hand-detection.service';
+import { JsonFileService } from 'src/app/services/json-file.service';
 import { SignClassificationService } from 'src/app/services/sign-classification.service';
 import { WebcamService } from 'src/app/services/webcam.service';
 
@@ -16,29 +19,27 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
 
   @ViewChild('webcam') videoEl: ElementRef<HTMLVideoElement>;
   @ViewChild('output_canvas') canvasEl: ElementRef<HTMLCanvasElement>;
-  @ViewChild('finishButton') finishButton: ElementRef<HTMLButtonElement>;
   @ViewChild('status') statusEl: ElementRef;
-  @ViewChild('prediction') predictionEl: ElementRef;
 
   dataset: DatasetItem[] = [];
   predicting: boolean;
 
   constructor(
     private webcamService: WebcamService,
+    private gifGeneratorService: GifGeneratorService,
     private handDetectionService: HandDetectionService,
     private signClassificationService: SignClassificationService,
     private datasetService: DatasetService,
+    private jsonFileService: JsonFileService,
     private route: ActivatedRoute,
     private router: Router
-    ) {
-      this.dataset = this.datasetService.getItems();
-    }
+    ) {}
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    this.addEvents();
+    this.dataset = this.datasetService.getItems();
     this.setSignClassificationService();
     this.startCamera();
     this.trainAndPredict();
@@ -47,10 +48,6 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   ngOnDestroy() {
     this.handDetectionService.stopHandDetection();
     this.webcamService.stopCamera();
-  }
-
-  addEvents() {
-    this.finishButton.nativeElement.addEventListener('click', this.onFinishClick);
   }
 
   setSignClassificationService() {
@@ -72,20 +69,49 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
       this.statusEl.nativeElement.textContent = `Comenzando entrenamiento. (${epoch+1} / ${epochs_number})`;
     });
     this.statusEl.nativeElement.textContent = 'Entrenamiento finalizado.';
-
+    
     this.handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement);
-
+    
     this.signClassificationService.startPrediction();
-
+    
     this.signClassificationService.itemPrediction.subscribe((prediction) => {
       if (prediction) {
-        this.predictionEl.nativeElement.textContent = prediction.label;
+        this.statusEl.nativeElement.textContent = prediction.label;
       }
     });
   }
 
-  onFinishClick = () => {
-    this.router.navigate(['/training-step4']);
+  onFinishClick = async () => {
+    //this.router.navigate(['/training-step4']);
+    this.statusEl.nativeElement.textContent = 'Guardando modelo...';
+    await this.generateGifs();
+    await this.downloadDatasetJson();
+    await this.signClassificationService.save('sign_detector');
+    this.statusEl.nativeElement.textContent = '¡Modelo guardado correctamente!';
+  }
+
+  async generateGifs() {
+    if (this.dataset.length > 0) {
+      for (let index = 0; index < this.dataset.length; index++) {
+        if (this.dataset[index].images_count > 0) {
+          let url = await this.gifGeneratorService.generateGif(this.dataset[index].webcam_images);
+          this.dataset[index].image_gif = url;
+        }
+      }
+    }
+  }
+
+  async downloadDatasetJson() {
+    let data: DatasetJson = {
+      sections: [
+        {
+          section_index: 0,
+          section_label: 'Sección 1'
+        }
+      ],
+      words: this.dataset
+    };
+    await this.jsonFileService.generateJsonFile(data, 'dataset.json');
   }
 
 }

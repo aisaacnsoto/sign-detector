@@ -158,8 +158,8 @@ export class SignClassificationService {
 
   private getWebcamImageURL() {
     let canvas = document.createElement('canvas');
-    canvas.style.width = this.videoElement.videoWidth.toString();
-    canvas.style.height = this.videoElement.videoHeight.toString();
+    // canvas.style.width = this.videoElement.videoWidth.toString();
+    // canvas.style.height = this.videoElement.videoHeight.toString();
     canvas.width = this.videoElement.videoWidth;
     canvas.height = this.videoElement.videoHeight;
     let canvasCtx = canvas.getContext('2d');
@@ -229,6 +229,7 @@ export class SignClassificationService {
   async save(modelName: string) {
     let url = 'downloads://' + modelName;
     const saveResults = await this.model.save(url);
+    console.log(saveResults);
     return url;
   }
 
