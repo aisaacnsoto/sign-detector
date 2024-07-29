@@ -28,6 +28,10 @@ const routes: Routes = [
     component: TrainingStep3PageComponent
   },
   {
+    path: 'training-step4',
+    component: TrainingStep4PageComponent
+  },
+  {
     path: 'home',
     component: HomePageComponent
   },

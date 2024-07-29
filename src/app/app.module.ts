@@ -28,6 +28,7 @@ import { LearningSectionOverviewPageComponent } from './pages/learning-section-o
 import { LearningSectionsPageComponent } from './pages/learning-sections-page/learning-sections-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { PracticePageComponent } from './pages/practice-page/practice-page.component';
+import { SignDetectorModelService } from './services/sign-detector-model.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PracticePageComponent } from './pages/practice-page/practice-page.compo
     SignClassificationService,
     HandDetectionService,
     DatasetService,
-    GifGeneratorService
+    GifGeneratorService,
+    SignDetectorModelService
   ],
   bootstrap: [AppComponent]
 })

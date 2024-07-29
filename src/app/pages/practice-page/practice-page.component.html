@@ -1,1 +1,15 @@
-<p>practice-page works!</p>
+<div class="canvas-section">
+    <canvas class="output_canvas" #output_canvas></canvas>
+</div>
+<div class="webcam-section">
+    <video #webcam autoplay></video>
+</div>
+<div class="page-content">
+    <div class="label-section">
+        <p #randomWord></p>
+        <p #status></p>
+    </div>
+</div>
+<div class="page-footer">
+    <p-button class="finish-button" #finishButton label="Regresar" [rounded]="true" (onClick)="onFinishClick()"></p-button>
+</div>

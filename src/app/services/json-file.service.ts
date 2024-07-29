@@ -12,7 +12,7 @@ export class JsonFileService {
 
   constructor(private http: HttpClient) { }
 
-  async generateJsonFile(data: DatasetJson, fileName: string): Promise<Blob> {
+  async generateJsonFile(data: DatasetJson): Promise<Blob> {
     return new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     //const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     //saveAs(jsonBlob, fileName);
@@ -31,7 +31,8 @@ export class JsonFileService {
 
   async loadFromFirebase() {
     try {
-      let url = await this.getDownloadURL();
+      const filePath = `http://localhost:3000/getfile?path=dataset_v1/dataset/dataset.json`;
+      let url = await this.getDownloadURL(filePath);
       const response = this.http.get<DatasetJson>(url.download_url).toPromise();
       return response;
     } catch (error) {
@@ -40,10 +41,9 @@ export class JsonFileService {
     }
   }
 
-  async getDownloadURL() {
-    const filePath = `http://localhost:3000/getfile?path=dataset_v1/dataset/dataset.json`;
+  async getDownloadURL(url_backend: string) {
     try {
-      const response = this.http.get<any>(filePath).toPromise();
+      const response = this.http.get<any>(url_backend).toPromise();
       return response;
     } catch (error) {
       console.error('Error cargando archivo JSON:', error);

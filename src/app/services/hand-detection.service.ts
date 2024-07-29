@@ -31,6 +31,7 @@ export class HandDetectionService {
       runningMode: "VIDEO",
       numHands: 2
     });
+    console.log('HandLandmarker cargado');
   }
 
   startHandsDetection(videoElement: HTMLVideoElement, canvasElement: HTMLCanvasElement) {

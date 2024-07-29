@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
     this.primengConfig.ripple = true;
     await this._handDetectionService.loadHandLandmarker();
     await this._signClassificationService.loadMobileNetFeatureModel();
-    await this.initializaDataset();
 
     this._handDetectionService.handsDetected.subscribe((handsDetected) => {
       this._signClassificationService.setHandsDetected(handsDetected);

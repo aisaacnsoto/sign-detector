@@ -11,8 +11,7 @@ import { WebcamService } from 'src/app/services/webcam.service';
 
 import { Storage, ref, uploadBytes } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-
-
+import { DatasetSection } from 'src/app/interfaces/dataset-section';
 
 @Component({
   selector: 'app-training-step3-page',
@@ -25,7 +24,8 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   @ViewChild('output_canvas') canvasEl: ElementRef<HTMLCanvasElement>;
   @ViewChild('status') statusEl: ElementRef;
 
-  dataset: DatasetWord[] = [];
+  words: DatasetWord[] = [];
+  sections: DatasetSection[] = [];
   predicting: boolean;
   datasetFolderName = environment.dataset.directory;
 
@@ -45,7 +45,8 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngAfterViewInit() {
-    this.dataset = this.datasetService.getWords();
+    this.words = this.datasetService.getWords();
+    this.sections = this.datasetService.getSections();
     this.setSignClassificationService();
     this.startCamera();
     this.trainAndPredict();
@@ -94,14 +95,17 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
     await this.uploadDatasetJson();
     await this.uploadModel();
     this.statusEl.nativeElement.textContent = '¡Modelo guardado correctamente!';
+    setTimeout(() => {
+      this.router.navigate(['/home']);
+    }, 1000);
   }
 
   async generateGifs() {
-    if (this.dataset.length > 0) {
-      for (let index = 0; index < this.dataset.length; index++) {
-        if (this.dataset[index].frames_count > 0) {
-          let url = await this.gifGeneratorService.generateGif(this.dataset[index].webcam_frames);
-          this.dataset[index].word_gif = url;
+    if (this.words.length > 0) {
+      for (let index = 0; index < this.words.length; index++) {
+        if (this.words[index].frames_count > 0) {
+          let url = await this.gifGeneratorService.generateGif(this.words[index].webcam_frames);
+          this.words[index].word_gif = url;
         }
       }
     }
@@ -109,26 +113,20 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
 
   async uploadDatasetJson() {
     let data: DatasetJson = {
-      sections: [
-        {
-          section_index: 0,
-          section_label: 'Sección 1',
-          words_count: 0
-        }
-      ],
-      words: this.dataset
+      sections: this.sections,
+      words: this.words
     };
-    let jsonFile = await this.jsonFileService.generateJsonFile(data, 'dataset.json');
+    let jsonFile = await this.jsonFileService.generateJsonFile(data);
 
     let storageRef = ref(this.storage, `${this.datasetFolderName}/dataset/dataset.json`);
     await uploadBytes(storageRef, jsonFile);
   }
 
   async uploadModel() {
-    let path = `${this.datasetFolderName}/model/sign_detector.json`
+    // let path = `${this.datasetFolderName}/model/model.json`
     // let url = storageRef.fullPath;
     // console.log('storageRef.fullPath',storageRef);
-    this.signClassificationService.save("http://localhost:3000/data?path="+path);
+    this.signClassificationService.save("http://localhost:3000/uploadmodel");
   }
 
 }
