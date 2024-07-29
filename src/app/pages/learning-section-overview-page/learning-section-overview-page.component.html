@@ -1,0 +1,15 @@
+<div class="page-header">
+    <h1 *ngIf="section">{{section.section_label}}</h1>
+</div>
+<div class="page-content">
+    <div class="word-list" *ngIf="words">
+        <p-card *ngFor="let word of words">
+            <div class="item-content">
+                <div class="item-label">
+                    <p>{{word.word_label}}</p>
+                </div>
+                <img class="item-gif" [src]="word.word_gif" *ngIf="word.word_gif">
+            </div>
+        </p-card>
+    </div>
+</div>

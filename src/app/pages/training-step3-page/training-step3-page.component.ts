@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatasetWord } from 'src/app/interfaces/dataset-word';
 import { DatasetJson } from 'src/app/interfaces/dataset-json';
@@ -8,6 +8,10 @@ import { HandDetectionService } from 'src/app/services/hand-detection.service';
 import { JsonFileService } from 'src/app/services/json-file.service';
 import { SignClassificationService } from 'src/app/services/sign-classification.service';
 import { WebcamService } from 'src/app/services/webcam.service';
+
+import { Storage, ref, uploadBytes } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
+
 
 
 @Component({
@@ -23,6 +27,7 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
 
   dataset: DatasetWord[] = [];
   predicting: boolean;
+  datasetFolderName = environment.dataset.directory;
 
   constructor(
     private webcamService: WebcamService,
@@ -32,7 +37,8 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
     private datasetService: DatasetService,
     private jsonFileService: JsonFileService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private storage: Storage
     ) {}
 
   ngOnInit() {
@@ -85,8 +91,8 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
     //this.router.navigate(['/training-step4']);
     this.statusEl.nativeElement.textContent = 'Guardando modelo...';
     await this.generateGifs();
-    await this.downloadDatasetJson();
-    await this.signClassificationService.save('sign_detector');
+    await this.uploadDatasetJson();
+    await this.uploadModel();
     this.statusEl.nativeElement.textContent = '¡Modelo guardado correctamente!';
   }
 
@@ -101,7 +107,7 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
-  async downloadDatasetJson() {
+  async uploadDatasetJson() {
     let data: DatasetJson = {
       sections: [
         {
@@ -112,7 +118,17 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
       ],
       words: this.dataset
     };
-    await this.jsonFileService.generateJsonFile(data, 'dataset.json');
+    let jsonFile = await this.jsonFileService.generateJsonFile(data, 'dataset.json');
+
+    let storageRef = ref(this.storage, `${this.datasetFolderName}/dataset/dataset.json`);
+    await uploadBytes(storageRef, jsonFile);
+  }
+
+  async uploadModel() {
+    let path = `${this.datasetFolderName}/model/sign_detector.json`
+    // let url = storageRef.fullPath;
+    // console.log('storageRef.fullPath',storageRef);
+    this.signClassificationService.save("http://localhost:3000/data?path="+path);
   }
 
 }

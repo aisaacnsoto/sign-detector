@@ -21,6 +21,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
+import { LearningSectionOverviewPageComponent } from './pages/learning-section-overview-page/learning-section-overview-page.component';
+import { LearningSectionsPageComponent } from './pages/learning-sections-page/learning-sections-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PracticePageComponent } from './pages/practice-page/practice-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +36,11 @@ import { DropdownModule } from 'primeng/dropdown';
     TrainingStep2PageComponent,
     TrainingStep3PageComponent,
     TrainingStep4PageComponent,
-    TrainingAddSectionPageComponent
+    TrainingAddSectionPageComponent,
+    LearningSectionOverviewPageComponent,
+    LearningSectionsPageComponent,
+    HomePageComponent,
+    PracticePageComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +52,8 @@ import { DropdownModule } from 'primeng/dropdown';
     CardModule,
     DropdownModule,
     FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ],
   providers: [
     WebcamService,

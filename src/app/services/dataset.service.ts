@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatasetWord } from '../interfaces/dataset-word';
 import { DatasetSection } from '../interfaces/dataset-section';
+import { DatasetJson } from '../interfaces/dataset-json';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,11 @@ export class DatasetService {
   private _sections: DatasetSection[] = [];
 
   constructor() {
+  }
+
+  initializeDataset(datasetJson: DatasetJson) {
+    this._sections = datasetJson.sections;
+    this._words = datasetJson.words;
   }
 
   addWord(word_label: string, section_index: number): void {

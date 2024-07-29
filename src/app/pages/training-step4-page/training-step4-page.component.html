@@ -2,8 +2,8 @@
     <h1>Nombre de sección</h1>
 </div>
 <div class="page-content">
-    <div class="word-list">
-        <p-card *ngFor="let item of dataset">
+    <div class="word-list" *ngIf="dataset">
+        <p-card *ngFor="let item of dataset.words">
             <div class="item-content">
                 <div class="item-label">
                     <p>{{item.word_label}}</p>

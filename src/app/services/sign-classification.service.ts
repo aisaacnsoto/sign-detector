@@ -48,12 +48,8 @@ export class SignClassificationService {
   }
 
   async loadMobileNetFeatureModel() {
-    console.log('Awaiting TF.js load...');
-    //const URL = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
     const URL = `${window.location.protocol}//${window.location.host}/assets/mobilenet/model.json`;
-    //this.mobilenet = await tf.loadGraphModel(URL, { fromTFHub: true });
     this.mobilenet = await tf.loadGraphModel(URL);
-    console.log('MobileNet v3 loaded successfully!');
 
     tf.tidy(() => {
       let answer: any = this.mobilenet.predict(tf.zeros([1, this.MOBILE_NET_INPUT_HEIGHT, this.MOBILE_NET_INPUT_WIDTH, 3]));
@@ -226,11 +222,12 @@ export class SignClassificationService {
     console.log('Tensors in memory: ' + tf.memory().numTensors);
   }
 
-  async save(modelName: string) {
-    let url = 'downloads://' + modelName;
+  async save(url: string) {
+    // let url = 'downloads://' + modelName;
+    // const saveResults = await this.model.save(url);
+    //let browserHTTPRequest: any = tf.io.browserHTTPRequest;
     const saveResults = await this.model.save(url);
-    console.log(saveResults);
-    return url;
+    return saveResults;
   }
 
 }

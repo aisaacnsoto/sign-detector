@@ -18,25 +18,19 @@ export class HandDetectionService {
   private _handsDetected: boolean;
   handsDetected: Observable<boolean> = this.handsDetectedSubject.asObservable();
 
-  constructor() {
-    //this.createHandLandmarker();
-  }
+  constructor() { }
 
-  async createHandLandmarker() {
-    console.log('cargando HandLandmarker');
+  async loadHandLandmarker() {
     const URL = `${window.location.protocol}//${window.location.host}/assets/mediapipe`;
-    //let vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm");
     let vision = await FilesetResolver.forVisionTasks(URL);
     this.handLandmarker = await HandLandmarker.createFromOptions(vision, {
       baseOptions: {
-        //modelAssetPath: `https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`,
         modelAssetPath: `assets/mediapipe/hand_landmarker.task`,
         delegate: "GPU"
       },
       runningMode: "VIDEO",
       numHands: 2
     });
-    console.log('HandLandmarker cargado correctamente!!!')
   }
 
   startHandsDetection(videoElement: HTMLVideoElement, canvasElement: HTMLCanvasElement) {

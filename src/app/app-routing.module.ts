@@ -5,6 +5,10 @@ import { TrainingStep2PageComponent } from './pages/training-step2-page/training
 import { TrainingStep3PageComponent } from './pages/training-step3-page/training-step3-page.component';
 import { TrainingStep4PageComponent } from './pages/training-step4-page/training-step4-page.component';
 import { TrainingAddSectionPageComponent } from './pages/training-add-section-page/training-add-section-page.component';
+import { LearningSectionsPageComponent } from './pages/learning-sections-page/learning-sections-page.component';
+import { LearningSectionOverviewPageComponent } from './pages/learning-section-overview-page/learning-section-overview-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PracticePageComponent } from './pages/practice-page/practice-page.component';
 
 const routes: Routes = [
   {
@@ -24,8 +28,20 @@ const routes: Routes = [
     component: TrainingStep3PageComponent
   },
   {
-    path: 'training-step4',
-    component: TrainingStep4PageComponent
+    path: 'home',
+    component: HomePageComponent
+  },
+  {
+    path: 'learning/sections',
+    component: LearningSectionsPageComponent
+  },
+  {
+    path: 'learning/section/overview/:section_index',
+    component: LearningSectionOverviewPageComponent
+  },
+  {
+    path: 'practice',
+    component: PracticePageComponent
   },
   { path: '', redirectTo: '/training-step1', pathMatch: 'full' }, // Redirección predeterminada
   { path: '**', redirectTo: '/training-step1' } // Ruta para manejar errores 404
