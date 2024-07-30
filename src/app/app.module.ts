@@ -29,6 +29,8 @@ import { LearningSectionsPageComponent } from './pages/learning-sections-page/le
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { PracticePageComponent } from './pages/practice-page/practice-page.component';
 import { SignDetectorModelService } from './services/sign-detector-model.service';
+import { TrainingAddWordPageComponent } from './pages/training-add-word-page/training-add-word-page.component';
+import { TrainingAddFramesPageComponent } from './pages/training-add-frames-page/training-add-frames-page.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { SignDetectorModelService } from './services/sign-detector-model.service
     LearningSectionOverviewPageComponent,
     LearningSectionsPageComponent,
     HomePageComponent,
-    PracticePageComponent
+    PracticePageComponent,
+    TrainingAddWordPageComponent,
+    TrainingAddFramesPageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,7 @@
 <div class="page-header">
-    <h1>Entrenamiento</h1>
+    <h1>Palabras</h1>
 </div>
 <div class="page-content">
-    <div class="section-select">
-        <p-dropdown [options]="sections" [(ngModel)]="selectedSection" optionLabel="section_label" placeholder="Selecciona una sección"></p-dropdown>
-        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="onAddSectionClick()"></p-button>
-    </div>
-    <div class="word-add">
-        <input type="text" class="input-text" #newClassNameInput pInputText placeholder="Ingresa una palabra" />
-        <p-button label="Agregar" [rounded]="true" (onClick)="onAddClassClick()"></p-button>
-    </div>
     <div class="word-count">
         <p>Total: {{words.length}} palabras</p>
     </div>
@@ -34,5 +26,5 @@
     </div>
 </div>
 <div class="page-footer" *ngIf="readyToTrain">
-    <p-button class="train-button" label="Entrenar" [disabled]="!readyToTrain" [rounded]="true" (onClick)="onTrainClick()"></p-button>
+    <p-button class="train-button" label="Continuar" [disabled]="!readyToTrain" [rounded]="true" (onClick)="onTrainClick()"></p-button>
 </div>

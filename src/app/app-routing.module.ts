@@ -9,15 +9,25 @@ import { LearningSectionsPageComponent } from './pages/learning-sections-page/le
 import { LearningSectionOverviewPageComponent } from './pages/learning-section-overview-page/learning-section-overview-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { PracticePageComponent } from './pages/practice-page/practice-page.component';
+import { TrainingAddWordPageComponent } from './pages/training-add-word-page/training-add-word-page.component';
+import { TrainingAddFramesPageComponent } from './pages/training-add-frames-page/training-add-frames-page.component';
 
 const routes: Routes = [
   {
-    path: 'training-step1',
-    component: TrainingStep1PageComponent
+    path: 'training-add-word',
+    component: TrainingAddWordPageComponent
   },
   {
     path: 'training-add-section',
     component: TrainingAddSectionPageComponent
+  },
+  {
+    path: 'training-add-frames',
+    component: TrainingAddFramesPageComponent
+  },
+  {
+    path: 'training-step1',
+    component: TrainingStep1PageComponent
   },
   {
     path: 'training-step2/:index',
@@ -47,8 +57,8 @@ const routes: Routes = [
     path: 'practice',
     component: PracticePageComponent
   },
-  { path: '', redirectTo: '/training-step1', pathMatch: 'full' }, // Redirección predeterminada
-  { path: '**', redirectTo: '/training-step1' } // Ruta para manejar errores 404
+  { path: '', redirectTo: '/training-add-word', pathMatch: 'full' }, // Redirección predeterminada
+  { path: '**', redirectTo: '/training-add-word' } // Ruta para manejar errores 404
 ];
 
 @NgModule({

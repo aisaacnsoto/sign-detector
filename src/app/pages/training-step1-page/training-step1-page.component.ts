@@ -11,9 +11,6 @@ import { DatasetService } from 'src/app/services/dataset.service';
 })
 export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('newClassNameInput') newClassNameInput: ElementRef<HTMLInputElement>;
-  @ViewChild('divGif') divGif: ElementRef<HTMLDivElement>;
-
   readyToTrain: boolean = false;
   words: DatasetWord[] = [];
   sections: DatasetSection[] = [];
@@ -32,21 +29,6 @@ export class TrainingStep1PageComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit() {
-  }
-
-  onAddClassClick = () => {
-    let className = this.newClassNameInput.nativeElement.value;
-    if (className && this.selectedSection) {
-      this._datasetService.addWord(className, this.selectedSection.section_index);
-      this.newClassNameInput.nativeElement.value = '';
-      this.newClassNameInput.nativeElement.focus();
-
-      this.showTrainButton();
-    }
-  }
-
-  onAddSectionClick = () => {
-    this.router.navigate(['/training-add-section']);
   }
 
   onTrainClick = () => {

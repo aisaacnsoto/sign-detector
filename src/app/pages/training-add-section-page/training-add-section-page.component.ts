@@ -37,7 +37,7 @@ export class TrainingAddSectionPageComponent implements OnInit, AfterViewInit {
   }
 
   onBackClick = () => {
-    this.router.navigate(['/training-step1']);
+    this.router.navigate(['/training-add-word']);
   }
 
 }

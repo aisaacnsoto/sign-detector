@@ -1,0 +1,24 @@
+<div class="canvas-section">
+    <canvas class="output_canvas" #output_canvas></canvas>
+</div>
+<div class="webcam-section">
+    <video #webcam autoplay></video>
+</div>
+<div class="page-content">
+    <div class="actions-section">
+        <p-button [label]="collectBtn.label" [rounded]="true" (onClick)="onDataCollectClick()"></p-button>
+        <p-button *ngIf="nextBtn.visible" [label]="nextBtn.label" [rounded]="true" (onClick)="onNextClick()"></p-button>
+    </div>
+    <div class="label-section">
+        <p>{{currentWord.word_label}}</p>
+    </div>
+    <div class="image-count-section">
+        <p>{{currentWord.frames_count}} fotos</p>
+    </div>
+    <div class="photo-container">
+        <img [src]="image" *ngFor="let image of currentWord.hand_landmark_frames">
+    </div>
+</div>
+<div class="page-footer" *ngIf="readyToContinue">
+    <p-button class="train-button" label="Continuar" [rounded]="true" (onClick)="onContinueClick()"></p-button>
+</div>

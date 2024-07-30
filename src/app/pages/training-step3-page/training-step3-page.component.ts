@@ -95,9 +95,9 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
     await this.uploadDatasetJson();
     await this.uploadModel();
     this.statusEl.nativeElement.textContent = '¡Modelo guardado correctamente!';
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 1000);
+    // setTimeout(() => {
+    //   this.router.navigate(['/home']);
+    // }, 1000);
   }
 
   async generateGifs() {
@@ -112,21 +112,28 @@ export class TrainingStep3PageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   async uploadDatasetJson() {
+    this.words.forEach(word => {
+      word.hand_landmark_frames = undefined;
+      word.webcam_frames = undefined;
+    })
     let data: DatasetJson = {
       sections: this.sections,
       words: this.words
     };
-    let jsonFile = await this.jsonFileService.generateJsonFile(data);
-
-    let storageRef = ref(this.storage, `${this.datasetFolderName}/dataset/dataset.json`);
-    await uploadBytes(storageRef, jsonFile);
+    let url = "http://localhost:3000/upload_dataset";
+    let body = {
+      path: 'dataset_v1/dataset/dataset.json',
+      json: JSON.stringify(data, null, 2)
+    };
+    let response = await this.jsonFileService.uploadJsonFile(url, body);
+    console.log(response);
   }
 
   async uploadModel() {
     // let path = `${this.datasetFolderName}/model/model.json`
     // let url = storageRef.fullPath;
     // console.log('storageRef.fullPath',storageRef);
-    this.signClassificationService.save("http://localhost:3000/uploadmodel");
+    this.signClassificationService.save("http://localhost:3000/upload_model");
   }
 
 }

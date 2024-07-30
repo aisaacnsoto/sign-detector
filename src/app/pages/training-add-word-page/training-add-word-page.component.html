@@ -1,0 +1,29 @@
+<div class="page-header">
+    <h1>Palabras</h1>
+</div>
+<div class="page-content">
+    <div class="section-select">
+        <p-dropdown [options]="sections" [(ngModel)]="selectedSection" optionLabel="section_label" placeholder="Selecciona una sección"></p-dropdown>
+        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="onAddSectionClick()"></p-button>
+    </div>
+    <div class="word-add">
+        <input type="text" class="input-text" #newClassNameInput pInputText placeholder="Ingresa una palabra" />
+        <p-button label="Agregar" [rounded]="true" (onClick)="onAddClassClick()"></p-button>
+    </div>
+    <div class="word-count">
+        <p>Total: {{words.length}} palabras</p>
+    </div>
+    <div class="word-list">
+        <div class="section-tile" *ngFor="let section of sections">
+            <div class="section-tile-content" *ngIf="section.words_count > 0">
+                <p class="item-label">Sección "{{section.section_label}}"</p>
+                <p-card *ngFor="let word of getSectionWords(section.section_index)">
+                    <p class="item-label">{{word.word_label}}</p>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-footer" *ngIf="readyToContinue">
+    <p-button class="train-button" label="Continuar" [disabled]="!readyToContinue" [rounded]="true" (onClick)="onContinueClick()"></p-button>
+</div>
