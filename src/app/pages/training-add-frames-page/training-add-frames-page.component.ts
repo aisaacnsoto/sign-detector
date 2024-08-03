@@ -3,9 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatasetWord } from 'src/app/interfaces/dataset-word';
 import { DatasetService } from 'src/app/services/dataset.service';
 import { HandDetectionService } from 'src/app/services/hand-detection.service';
-import { SignClassificationService } from 'src/app/services/sign-classification.service';
-import { WebcamService } from 'src/app/services/webcam.service';
-import { Button } from 'primeng/button';
+import { TrainingWizardService } from 'src/app/services/training-wizard.service';
+import { WebcamService } from 'src/app/services/common/webcam.service';
 
 @Component({
   selector: 'app-training-add-frames-page',
@@ -27,16 +26,15 @@ export class TrainingAddFramesPageComponent implements OnInit, OnDestroy, AfterV
   readyToContinue: boolean;
 
   constructor(
-    private webcamService: WebcamService,
-    private handDetectionService: HandDetectionService,
-    private signClassificationService: SignClassificationService,
-    private datasetService: DatasetService,
-    private route: ActivatedRoute,
-    private router: Router
+    private _webcamService: WebcamService,
+    private _handDetectionService: HandDetectionService,
+    private _trainingWizardService: TrainingWizardService,
+    private _datasetService: DatasetService,
+    private _router: Router
     ) {}
 
   ngOnInit() {
-    this.datasetWords = this.datasetService.getWords();
+    this.datasetWords = this._datasetService.getWords();
     this.currentIndex = 0;
     this.currentWord = this.datasetWords.at(this.currentIndex);
   }
@@ -44,18 +42,20 @@ export class TrainingAddFramesPageComponent implements OnInit, OnDestroy, AfterV
   ngAfterViewInit() {
     this.startCamera();
 
-    this.signClassificationService.setElements(this.canvasEl.nativeElement, this.videoEl.nativeElement);
+    this._trainingWizardService.setElements(this.canvasEl.nativeElement, this.videoEl.nativeElement);
   }
 
   ngOnDestroy() {
-    this.handDetectionService.stopHandDetection();
-    this.webcamService.stopCamera();
+    this._handDetectionService.stopHandDetection();
+    this._webcamService.stopCamera();
   }
 
   startCamera = async () => {
     try {
-      await this.webcamService.initializeCamera(this.videoEl.nativeElement);
-      this.handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement);
+      await this._webcamService.initializeCamera(this.videoEl.nativeElement);
+      this._handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement).subscribe(handsDetected => {
+        this._trainingWizardService.setHandsDetected(handsDetected);
+      });
     } catch (error) {
       console.error('Error initializing app:', error);
     }
@@ -65,10 +65,10 @@ export class TrainingAddFramesPageComponent implements OnInit, OnDestroy, AfterV
     this.collectingData = !this.collectingData;
 
     if (this.collectingData) {
-      this.signClassificationService.startDataCollection(this.currentWord.word_index);
+      this._trainingWizardService.startDataCollection(this.currentWord.word_index);
       this.collectBtn.label = 'Detener';
     } else {
-      this.signClassificationService.stopDataCollection();
+      this._trainingWizardService.stopDataCollection();
       this.collectBtn.label = 'Iniciar';
     }
     this.showContinueButton();
@@ -84,7 +84,7 @@ export class TrainingAddFramesPageComponent implements OnInit, OnDestroy, AfterV
   }
 
   onContinueClick = () => {
-    this.router.navigate(['/training-step1']);
+    this._router.navigate(['/training-summary']);
   }
 
   showNextButton() {

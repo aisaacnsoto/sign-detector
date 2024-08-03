@@ -1,0 +1,89 @@
+:host ::ng-deep .page-footer button,
+:host ::ng-deep p-card {
+    width: 100%;
+}
+
+:host ::ng-deep .p-card-content {
+    padding: 0px;
+}
+
+.section-select {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+:host ::ng-deep .section-select p-dropdown,
+:host ::ng-deep .section-select .p-dropdown {
+    width: 100%;
+}
+
+:host ::ng-deep .section-select .p-dropdown {
+    border-radius: 50px;
+}
+
+:host ::ng-deep .section-select .p-dropdown-label {
+    box-shadow: none;
+}
+
+.word-add {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.word-add input {
+    width: 100%;
+}
+
+.item-label {
+    font-weight: bold;
+}
+
+.item-images-count {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.item-images-section {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.item-images-section div {
+    flex: 1;
+}
+
+.item-images-section img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.word-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.word-count {
+    margin-bottom: 8px;
+}
+
+.section-tile, .section-tile-content {
+    width: 100%;
+}
+
+.section-tile-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}

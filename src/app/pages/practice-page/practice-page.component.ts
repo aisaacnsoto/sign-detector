@@ -1,16 +1,10 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { DatasetWord } from 'src/app/interfaces/dataset-word';
-import { DatasetJson } from 'src/app/interfaces/dataset-json';
 import { DatasetService } from 'src/app/services/dataset.service';
-import { GifGeneratorService } from 'src/app/services/gif-generator.service';
 import { HandDetectionService } from 'src/app/services/hand-detection.service';
-import { JsonFileService } from 'src/app/services/json-file.service';
-import { SignClassificationService } from 'src/app/services/sign-classification.service';
-import { WebcamService } from 'src/app/services/webcam.service';
+import { WebcamService } from 'src/app/services/common/webcam.service';
 
-import { Storage, ref, uploadBytes } from '@angular/fire/storage';
-import { environment } from 'src/environments/environment';
 import { SignDetectorModelService } from 'src/app/services/sign-detector-model.service';
 
 @Component({
@@ -32,15 +26,10 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private webcamService: WebcamService,
-    private gifGeneratorService: GifGeneratorService,
     private handDetectionService: HandDetectionService,
-    //private signClassificationService: SignClassificationService,
     private signDetectorModelService: SignDetectorModelService,
     private datasetService: DatasetService,
-    private jsonFileService: JsonFileService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private storage: Storage
+    private router: Router
     ) {}
 
   ngOnInit() {
@@ -50,18 +39,8 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   async ngAfterViewInit() {
     this.setRandomWord();
     await this.startCamera();
-    await this.loadModel();
-    this.setSignClassificationService();
+    this.setTrainingWizardService();
     this.startPractice();
-  }
-
-  async loadModel() {
-    
-    await this.signDetectorModelService.loadMobileNetFeatureModel();
-    const filePath = `http://localhost:3000/getfile?path=model.json`;
-    let response = await this.jsonFileService.getDownloadURL(filePath);
-    await this.signDetectorModelService.loadTrainedModelFromURL(response.download_url);
-    
   }
 
   ngOnDestroy() {
@@ -69,7 +48,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.webcamService.stopCamera();
   }
 
-  setSignClassificationService() {
+  setTrainingWizardService() {
     this.signDetectorModelService.setElements(this.canvasEl.nativeElement);
   }
 
@@ -82,15 +61,12 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   startPractice = async () => {
-    this.handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement);
+    this.handDetectionService.startHandsDetection(this.videoEl.nativeElement, this.canvasEl.nativeElement)
+      .subscribe((handsDetected) => {
+        this.signDetectorModelService.setHandsDetected(handsDetected);
+      });
 
-    this.handDetectionService.handsDetected.subscribe((handsDetected) => {
-      this.signDetectorModelService.setHandsDetected(handsDetected);
-    });
-    
-    this.signDetectorModelService.startPrediction()
-    
-    this.signDetectorModelService.itemPrediction.subscribe(this.onPrediction);
+    this.signDetectorModelService.startPrediction().subscribe(this.onPrediction);
   }
 
   onPrediction = (word: DatasetWord) => {
