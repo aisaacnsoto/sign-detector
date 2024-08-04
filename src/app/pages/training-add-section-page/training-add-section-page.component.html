@@ -2,10 +2,12 @@
     <h1>Secciones</h1>
 </div>
 <div class="page-content">
-    <div class="section-add">
-        <input type="text" class="input-text" #sectionLabelInput pInputText placeholder="Etiqueta de la sección" />
-        <p-button label="Agregar" [rounded]="true" (onClick)="onAddClick()"></p-button>
-    </div>
+    <form [formGroup]="sectionForm" (ngSubmit)="onAddClick()">
+        <div class="section-add">
+            <input type="text" class="input-text" formControlName="sectionLabel" #sectionLabelInput pInputText placeholder="Etiqueta de la sección" />
+            <p-button label="Agregar" type="submit" [rounded]="true" [disabled]="!sectionForm.valid"></p-button>
+        </div>
+    </form>
     <div class="section-count">
         <p>Total: {{sections.length}} secciones</p>
     </div>

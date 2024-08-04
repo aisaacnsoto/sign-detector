@@ -27,7 +27,7 @@ export class DatasetService {
       word_index = last_word.word_index + 1;
     }
     this.getWords().push({ word_index, word_label, section_index, hand_landmark_frames: [], webcam_frames: [], frames_count: 0 });
-    this.getSection(section_index).words_count = this.getSectionWords(section_index).length + 1;
+    this.getSection(section_index).words_count = this.getSectionWords(section_index).length;
   }
 
   removeWord(index: number): void {
@@ -87,4 +87,11 @@ export class DatasetService {
     return this.getWords().filter(value => value.section_index == section_index);
   }
 
+  existsWord(wordLabel: string) {
+    return !!this.getWords().find(value => value.word_label.toLowerCase() == wordLabel.toLowerCase());
+  }
+  
+  existsSection(sectionLabel: string) {
+    return !!this.getSections().find(value => value.section_label.toLowerCase() == sectionLabel.toLowerCase());
+  }
 }

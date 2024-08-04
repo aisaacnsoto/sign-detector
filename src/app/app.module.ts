@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TrainingSummaryPageComponent } from './pages/training-summary-page/training-summary-page.component';
 import { TrainingSummaryAddFramesPageComponent } from './pages/training-summary-add-frames-page/training-summary-add-frames-page.component';
@@ -57,7 +57,7 @@ import { TrainingFinishComponent } from './pages/training-finish/training-finish
     ButtonModule,
     CardModule,
     DropdownModule,
-    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     WebcamService,

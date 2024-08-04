@@ -1,3 +1,4 @@
+:host ::ng-deep .page-footer button,
 :host ::ng-deep p-card {
     width: 100%;
 }

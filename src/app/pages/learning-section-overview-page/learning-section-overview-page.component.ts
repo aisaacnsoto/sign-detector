@@ -33,4 +33,8 @@ export class LearningSectionOverviewPageComponent implements OnInit {
     });
   }
 
+  onBackClick = () => {
+    this._router.navigate(['/learning/sections']);
+  }
+
 }

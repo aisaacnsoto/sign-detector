@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatasetSection } from 'src/app/interfaces/dataset-section';
 import { DatasetService } from 'src/app/services/dataset.service';
@@ -14,9 +15,14 @@ export class TrainingAddSectionPageComponent implements OnInit, AfterViewInit {
   @ViewChild('divGif') divGif: ElementRef<HTMLDivElement>;
   sections: DatasetSection[] = [];
 
+  sectionForm = this._formBuilder.group({
+    sectionLabel: ['', Validators.required],
+  });
+
   constructor(
     private router: Router,
-    private _datasetService: DatasetService
+    private _datasetService: DatasetService,
+    private _formBuilder: FormBuilder
     ) {
     this.sections = this._datasetService.getSections();
   }
@@ -28,10 +34,13 @@ export class TrainingAddSectionPageComponent implements OnInit, AfterViewInit {
   }
 
   onAddClick = () => {
-    let sectionLabel = this.sectionLabelInput.nativeElement.value;
-    if (sectionLabel) {
-      this._datasetService.addSection(sectionLabel);
-      this.sectionLabelInput.nativeElement.value = '';
+    if (this.sectionForm.valid) {
+      if (this._datasetService.existsSection(this.sectionForm.value.sectionLabel)) {
+        console.log('La sección ya ha sido agregada.');
+        return;
+      }
+      this._datasetService.addSection(this.sectionForm.value.sectionLabel);
+      this.sectionForm.reset();
       this.sectionLabelInput.nativeElement.focus();
     }
   }

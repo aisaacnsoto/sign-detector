@@ -2,14 +2,16 @@
     <h1>Palabras</h1>
 </div>
 <div class="page-content">
-    <div class="section-select">
-        <p-dropdown [options]="sections" [(ngModel)]="selectedSection" optionLabel="section_label" placeholder="Selecciona una sección"></p-dropdown>
-        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="onAddSectionClick()"></p-button>
-    </div>
-    <div class="word-add">
-        <input type="text" class="input-text" #newClassNameInput pInputText placeholder="Ingresa una palabra" />
-        <p-button label="Agregar" [rounded]="true" (onClick)="onAddClassClick()"></p-button>
-    </div>
+    <form [formGroup]="wordForm" (ngSubmit)="onAddClassClick()">
+        <div class="section-select">
+            <p-dropdown [options]="sections" formControlName="section" optionLabel="section_label" placeholder="Selecciona una sección"></p-dropdown>
+            <p-button icon="pi pi-plus" [rounded]="true" (onClick)="onAddSectionClick()"></p-button>
+        </div>
+        <div class="word-add">
+            <input type="text" class="input-text" #wordLabelInput formControlName="wordLabel" pInputText placeholder="Ingresa una palabra" />
+            <p-button label="Agregar" type="submit" [rounded]="true" [disabled]="!wordForm.valid"></p-button>
+        </div>
+    </form>
     <div class="word-count">
         <p>Total: {{words.length}} palabras</p>
     </div>
