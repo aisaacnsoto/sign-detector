@@ -4,6 +4,10 @@
 }
 :host ::ng-deep .p-card {
     overflow: hidden;
+    border-radius: 30px;
+    background-color: #4F46E5;
+    font-weight: bold;
+    color: white;
 }
 
 :host ::ng-deep .p-card-body,
@@ -23,6 +27,10 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
+}
+
+.item-label {
+    margin: 5px;
 }
 
 img {

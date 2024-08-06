@@ -2,11 +2,10 @@
     <h1>Secciones</h1>
 </div>
 <div class="page-content">
-    <div class="section-list">
-        <p-card *ngFor="let section of sections">
-            <p class="item-label">{{section.section_label}}</p>
-            <p-button icon="pi pi-arrow-right" (onClick)="onGoClick(section.section_index)"></p-button>
-        </p-card>
+    <div pRipple class="section" (click)="onGoClick(section.section_index)" *ngFor="let section of sections; let odd=odd">
+        <img class="hand-point-right" src="assets/img/hand-point-right.svg" *ngIf="!odd">
+        <img class="hand-point-left" src="assets/img/hand-point-left.svg" *ngIf="odd">
+        <p>{{section.section_label}}</p>
     </div>
 </div>
 <div class="page-footer">

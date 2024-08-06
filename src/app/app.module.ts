@@ -20,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import { RippleModule } from 'primeng/ripple';
 import { LearningSectionOverviewPageComponent } from './pages/learning-section-overview-page/learning-section-overview-page.component';
 import { LearningSectionsPageComponent } from './pages/learning-sections-page/learning-sections-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -57,6 +58,7 @@ import { TrainingFinishComponent } from './pages/training-finish/training-finish
     ButtonModule,
     CardModule,
     DropdownModule,
+    RippleModule,
     ReactiveFormsModule,
   ],
   providers: [

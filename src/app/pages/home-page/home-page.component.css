@@ -1,0 +1,33 @@
+#learning-section, #practice-section {
+    height: 150px;
+    border-radius: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+#learning-section {
+    background-color: #3f51b5;
+}
+
+#practice-section {
+    background-color: #2196f3;
+}
+
+#learning-section img,
+#practice-section img {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    opacity: 0.2;
+}
+
+#learning-section img {
+    left: 20px;
+}
+
+#practice-section img {
+    right: 20px;
+}

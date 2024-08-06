@@ -35,11 +35,11 @@ export class TrainingAddSectionPageComponent implements OnInit, AfterViewInit {
 
   onAddClick = () => {
     if (this.sectionForm.valid) {
-      if (this._datasetService.existsSection(this.sectionForm.value.sectionLabel)) {
+      if (this._datasetService.existsSection(this.sectionForm.value.sectionLabel.trim())) {
         console.log('La sección ya ha sido agregada.');
         return;
       }
-      this._datasetService.addSection(this.sectionForm.value.sectionLabel);
+      this._datasetService.addSection(this.sectionForm.value.sectionLabel.trim());
       this.sectionForm.reset();
       this.sectionLabelInput.nativeElement.focus();
     }

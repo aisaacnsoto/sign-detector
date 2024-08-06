@@ -1,2 +1,10 @@
-<p-button class="train-button" label="Aprender" [rounded]="true" (onClick)="onLearningClick()"></p-button>
-<p-button class="train-button" label="Practicar" [rounded]="true" (onClick)="onPracticeClick()"></p-button>
+<div class="page-content">
+    <div pRipple id="learning-section" (click)="onLearningClick()">
+        <img src="assets/img/palm.svg">
+        <p>Aprender</p>
+    </div>
+    <div pRipple id="practice-section" (click)="onPracticeClick()">
+        <img src="assets/img/meloic-sign.svg">
+        <p>Practicar</p>
+    </div>
+</div>

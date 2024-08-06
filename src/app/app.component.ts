@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
     ) {}
 
   async ngOnInit() {
+    await SplashScreen.hide();
     this._primengConfig.ripple = true;
     this._router.navigate(['/splash-screen']);
   }

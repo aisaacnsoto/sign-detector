@@ -43,12 +43,12 @@ export class TrainingAddWordPageComponent implements OnInit, AfterViewInit {
 
   onAddClassClick = () => {
     if (this.wordForm.valid) {
-      if (this._datasetService.existsWord(this.wordForm.value.wordLabel)) {
+      if (this._datasetService.existsWord(this.wordForm.value.wordLabel.trim())) {
         console.log('La palabra ya ha sido agregada.');
         return;
       }
       this.selectedSection = this.wordForm.value.section;
-      this._datasetService.addWord(this.wordForm.value.wordLabel, this.selectedSection.section_index);
+      this._datasetService.addWord(this.wordForm.value.wordLabel.trim(), this.selectedSection.section_index);
       this.wordForm.reset();
       this.wordForm.patchValue({section: this.selectedSection, wordLabel: ''});
       this.wordLabelInput.nativeElement.focus();
