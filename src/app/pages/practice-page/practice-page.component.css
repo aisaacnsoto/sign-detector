@@ -12,7 +12,7 @@
 }
 
 video, canvas {
-    height: auto;
+    height: 100vh;
     object-fit: contain;
 }
 
@@ -41,11 +41,11 @@ video {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: white;
 }
 
 .word-section .random-word {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
 }
 

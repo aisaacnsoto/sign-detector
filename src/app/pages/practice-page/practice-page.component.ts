@@ -103,7 +103,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
     let randomIndex = Math.floor(Math.random() * datasetWordCount);
     if (!this.randomIndexes.includes(randomIndex)) {
       this.randomWord = this.datasetService.getWords().at(randomIndex);
-      this.randomWordEl.nativeElement.style.color = 'black';
+      this.randomWordEl.nativeElement.style.color = 'white';
       this.showSuccess = false;
         this.showFail = false;
       this.randomWordEl.nativeElement.textContent = this.randomWord.word_label;
@@ -114,7 +114,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.practiceFinished = true;
         this.randomWordEl.nativeElement.textContent = '';
-        this.randomWordEl.nativeElement.style.color = 'black';
+        this.randomWordEl.nativeElement.style.color = 'white';
         this.showSuccess = false;
         this.showFail = false;
         console.log('no hay más palabras en el dataset');
