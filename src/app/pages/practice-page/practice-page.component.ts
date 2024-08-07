@@ -17,12 +17,14 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('webcam') videoEl: ElementRef<HTMLVideoElement>;
   @ViewChild('output_canvas') canvasEl: ElementRef<HTMLCanvasElement>;
   @ViewChild('randomWord') randomWordEl: ElementRef;
-  @ViewChild('status') statusEl: ElementRef;
+  //@ViewChild('status') statusEl: ElementRef;
 
   randomWord: DatasetWord;
   randomIndexes: number[] = [];
   waitingForNextWord: boolean;
   practiceFinished: boolean;
+  showSuccess: boolean;
+  showFail: boolean;
 
   constructor(
     private webcamService: WebcamService,
@@ -72,10 +74,14 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   onPrediction = (word: DatasetWord) => {
     if (word && !this.waitingForNextWord && !this.practiceFinished) {
       if (word.word_index == this.randomWord.word_index) {
-        this.statusEl.nativeElement.textContent = 'Correcto :D';
+        this.randomWordEl.nativeElement.style.color = '#00ff00';
+        this.showSuccess = true;
+        this.showFail = false;
         this.generateNextWord();
       } else {
-        this.statusEl.nativeElement.textContent = 'Incorrecto :(';
+        this.randomWordEl.nativeElement.style.color = '#ff0000';
+        this.showSuccess = false;
+        this.showFail = true;
       }
     }
   }
@@ -84,7 +90,6 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.waitingForNextWord = true;
     setTimeout(() => {
       this.setRandomWord();
-      this.statusEl.nativeElement.textContent = '';
       this.waitingForNextWord = false;
     }, 2000);
   }
@@ -98,6 +103,9 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
     let randomIndex = Math.floor(Math.random() * datasetWordCount);
     if (!this.randomIndexes.includes(randomIndex)) {
       this.randomWord = this.datasetService.getWords().at(randomIndex);
+      this.randomWordEl.nativeElement.style.color = 'black';
+      this.showSuccess = false;
+        this.showFail = false;
       this.randomWordEl.nativeElement.textContent = this.randomWord.word_label;
       this.randomIndexes.push(randomIndex);
     } else {
@@ -106,7 +114,9 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.practiceFinished = true;
         this.randomWordEl.nativeElement.textContent = '';
-        this.statusEl.nativeElement.textContent = '';
+        this.randomWordEl.nativeElement.style.color = 'black';
+        this.showSuccess = false;
+        this.showFail = false;
         console.log('no hay más palabras en el dataset');
       }
     }
