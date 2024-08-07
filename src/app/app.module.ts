@@ -31,6 +31,7 @@ import { TrainingAddFramesPageComponent } from './pages/training-add-frames-page
 import { SplashScreenPageComponent } from './pages/splash-screen-page/splash-screen-page.component';
 import { TrainingWelcomeComponent } from './pages/training-welcome/training-welcome.component';
 import { TrainingFinishComponent } from './pages/training-finish/training-finish.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { TrainingFinishComponent } from './pages/training-finish/training-finish
     TrainingAddFramesPageComponent,
     SplashScreenPageComponent,
     TrainingWelcomeComponent,
-    TrainingFinishComponent
+    TrainingFinishComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,23 @@
-.webcam-section, .canvas-section {
+.webcam-section, .canvas-section, .spinner-container {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.webcam-section {
+    z-index: 1;
+}
+
+.canvas-section {
+    z-index: 2;
+}
+.spinner-container {
+    z-index: 3;
+    position: absolute;
+    background-color: white;
 }
 
 .canvas-section {
@@ -30,13 +43,13 @@ video {
 }
 
 .backdrop {
-    z-index: 1;
+    z-index: 4;
     background-color: black;
     opacity: 0.2;
 }
 
 .word-section {
-    z-index: 2;
+    z-index: 5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,7 +63,7 @@ video {
 }
 
 .back-button {
-    z-index: 3;
+    z-index: 6;
     position: absolute;
     left: 10px;
     top: 10px;

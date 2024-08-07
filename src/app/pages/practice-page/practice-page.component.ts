@@ -39,10 +39,10 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async ngAfterViewInit() {
-    this.setRandomWord();
     await this.startCamera();
     this.setTrainingWizardService();
     this.startPractice();
+    this.setRandomWord();
   }
 
   ngOnDestroy() {
