@@ -84,47 +84,7 @@ export class TrainingTestPageComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   onFinishClick = async () => {
-    this.statusEl.nativeElement.textContent = 'Guardando modelo...';
-    await this.generateGifs();
-    await this.uploadDatasetJson();
-    await this.uploadModel();
-    this.statusEl.nativeElement.textContent = '¡Modelo guardado correctamente!';
-    setTimeout(() => {
-      this._router.navigate(['/training-finish']);
-    }, 1000);
-  }
-
-  async generateGifs() {
-    if (this.words.length > 0) {
-      for (let index = 0; index < this.words.length; index++) {
-        if (this.words[index].frames_count > 0) {
-          let url = await this._gifGeneratorService.generateGif(this.words[index].webcam_frames);
-          this.words[index].word_gif = url;
-        }
-      }
-    }
-  }
-
-  async uploadDatasetJson() {
-    this.words.forEach(word => {
-      word.hand_landmark_frames = undefined;
-      word.webcam_frames = undefined;
-    })
-    let data: DatasetJson = {
-      sections: this.sections,
-      words: this.words
-    };
-    let url = `${environment.service_url}/upload_dataset`;
-    let body = {
-      path: environment.dataset.path,
-      json: JSON.stringify(data, null, 2)
-    };
-    let response = await this._jsonFileService.uploadJsonFile(url, body);
-    console.log(response);
-  }
-
-  async uploadModel() {
-    this._trainingWizardService.save(`${environment.service_url}/upload_model`);
+    this._router.navigate(['/training-upload-model']);
   }
 
 }

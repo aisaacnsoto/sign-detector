@@ -13,6 +13,7 @@ import { TrainingAddFramesPageComponent } from './pages/training-add-frames-page
 import { SplashScreenPageComponent } from './pages/splash-screen-page/splash-screen-page.component';
 import { TrainingWelcomeComponent } from './pages/training-welcome/training-welcome.component';
 import { TrainingFinishComponent } from './pages/training-finish/training-finish.component';
+import { TrainingUploadModelComponent } from './pages/training-upload-model/training-upload-model.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'training-test',
     component: TrainingTestPageComponent
+  },
+  {
+    path: 'training-upload-model',
+    component: TrainingUploadModelComponent
   },
   {
     path: 'training-finish',
