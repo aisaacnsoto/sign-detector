@@ -1,8 +1,9 @@
 export const environment = {
-    training_mode: true,
+    training_mode: false,
     dataset: {
         version: 1,
-        path: "dataset_v1/dataset.json"
+        path: "datasets"
     },
     service_url: "https://testsigndetectorservice.netlify.app/.netlify/functions/index"
+    // service_url: "http://localhost:3000/.netlify/functions/index"
 };

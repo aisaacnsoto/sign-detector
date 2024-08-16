@@ -9,7 +9,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  
+
   constructor(
     private _primengConfig: PrimeNGConfig,
     private _router: Router

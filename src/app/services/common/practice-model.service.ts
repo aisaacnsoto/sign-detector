@@ -10,11 +10,11 @@ import { DatasetWord } from 'src/app/interfaces/dataset-word';
 export class PracticeModelService {
 
   private model: tf.LayersModel;
-  
+
   async loadFromAssets() {
     let url = `${window.location.protocol}//${window.location.host}/assets/model/model.json`;
     this.model = await tf.loadLayersModel(url);
-    console.log('Modal de firebase listo para usarse!!!', this.model);
+    console.log('Model de firebase listo para usarse!!!', this.model);
   }
 
   predict(imageFeatures: any) {

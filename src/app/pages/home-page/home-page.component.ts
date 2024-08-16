@@ -16,8 +16,7 @@ export class HomePageComponent implements OnInit {
     private _datasetService: DatasetService,
     ) { }
 
-  async ngOnInit() {
-    await this.initializaDataset();
+  ngOnInit() {
   }
 
   async initializaDataset() {

@@ -14,6 +14,7 @@ import { SplashScreenPageComponent } from './pages/splash-screen-page/splash-scr
 import { TrainingWelcomeComponent } from './pages/training-welcome/training-welcome.component';
 import { TrainingFinishComponent } from './pages/training-finish/training-finish.component';
 import { TrainingUploadModelComponent } from './pages/training-upload-model/training-upload-model.component';
+import { PruebaComponent } from './pages/prueba/prueba.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
   {
     path: 'practice',
     component: PracticePageComponent
+  },
+  {
+    path: 'prueba',
+    component: PruebaComponent
   },
   { path: '', redirectTo: '/splash-screen', pathMatch: 'full' }, // Redirección predeterminada
   { path: '**', redirectTo: '/splash-screen' } // Ruta para manejar errores 404

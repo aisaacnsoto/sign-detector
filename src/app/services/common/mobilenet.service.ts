@@ -14,7 +14,7 @@ export class MobilenetService {
     if (!this.mobilenet) {
       const URL = `${window.location.protocol}//${window.location.host}/assets/third_party/mobilenet/model.json`;
       this.mobilenet = await tf.loadGraphModel(URL);
-  
+
       tf.tidy(() => {
         let answer: any = this.mobilenet.predict(tf.zeros([1, this.MOBILE_NET_INPUT_HEIGHT, this.MOBILE_NET_INPUT_WIDTH, 3]));
         console.log(answer.shape);
@@ -23,10 +23,10 @@ export class MobilenetService {
     return this.mobilenet;
   }
 
-  
-  calculateFeaturesOnCurrentFrame(canvasEl: HTMLCanvasElement) {
+
+  calculateFeaturesOnCurrentFrame(media: HTMLCanvasElement | HTMLImageElement) {
     return tf.tidy(() => {
-      let videoFrameAsTensor = tf.browser.fromPixels(canvasEl);
+      let videoFrameAsTensor = tf.browser.fromPixels(media);
       let resizedTensorFrame = tf.image.resizeBilinear(
         videoFrameAsTensor,
         [this.MOBILE_NET_INPUT_HEIGHT, this.MOBILE_NET_INPUT_WIDTH],

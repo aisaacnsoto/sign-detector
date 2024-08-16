@@ -33,18 +33,19 @@ export class SplashScreenPageComponent implements OnInit {
       await this._mobilenetService.loadMobileNetFeatureModel();
 
       if (environment.training_mode) {
-        this._router.navigate(['/training-welcome']);
+        // this._router.navigate(['/training-welcome']);
+        this._router.navigate(['/prueba']);
       } else {
         await this.initializaDataset();
         await this._practiceModelService.loadFromAssets();
         this._router.navigate(['/home']);
       }
-  
+
     }
-  
+
     async initializaDataset() {
       let datasetJson = await this._jsonFileService.loadFromAssets();
       this._datasetService.initializeDataset(datasetJson);
     }
-  
+
 }

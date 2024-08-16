@@ -35,9 +35,9 @@ export class TrainingUploadModelComponent implements OnInit {
   async process() {
     this.words = this._datasetService.getWords();
     this.sections = this._datasetService.getSections();
-    await this.generateGifs();
+    //await this.generateGifs();
     await this.uploadDatasetJson();
-    await this.uploadModel();
+    //await this.uploadModel();
     setTimeout(() => {
       this._router.navigate(['/training-finish']);
     }, 1000);
@@ -55,18 +55,20 @@ export class TrainingUploadModelComponent implements OnInit {
   }
 
   async uploadDatasetJson() {
-    this.words.forEach(word => {
+    /*this.words.forEach(word => {
       word.hand_landmark_frames = undefined;
       word.webcam_frames = undefined;
-    })
+    })*/
     let data: DatasetJson = {
       sections: this.sections,
       words: this.words
     };
     let url = `${environment.service_url}/upload_dataset`;
+    let nombreArchivo = `${Date.now()}.json`;
     let body = {
-      path: environment.dataset.path,
-      json: JSON.stringify(data, null, 2)
+      path: `${environment.dataset.path}/${nombreArchivo}`,
+      nombre_archivo: nombreArchivo,
+      json: JSON.stringify(data)
     };
     let response = await this._jsonFileService.uploadJsonFile(url, body);
     console.log(response);

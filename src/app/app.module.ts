@@ -33,6 +33,7 @@ import { TrainingWelcomeComponent } from './pages/training-welcome/training-welc
 import { TrainingFinishComponent } from './pages/training-finish/training-finish.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TrainingUploadModelComponent } from './pages/training-upload-model/training-upload-model.component';
+import { PruebaComponent } from './pages/prueba/prueba.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { TrainingUploadModelComponent } from './pages/training-upload-model/trai
     TrainingWelcomeComponent,
     TrainingFinishComponent,
     SpinnerComponent,
-    TrainingUploadModelComponent
+    TrainingUploadModelComponent,
+    PruebaComponent
   ],
   imports: [
     BrowserModule,
