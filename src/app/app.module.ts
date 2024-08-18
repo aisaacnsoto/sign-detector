@@ -34,6 +34,8 @@ import { TrainingFinishComponent } from './pages/training-finish/training-finish
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TrainingUploadModelComponent } from './pages/training-upload-model/training-upload-model.component';
 import { PruebaComponent } from './pages/prueba/prueba.component';
+import { HolisticComponent } from './components/holistic/holistic.component';
+import { FramesComponent } from './components/frames/frames.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { PruebaComponent } from './pages/prueba/prueba.component';
     TrainingFinishComponent,
     SpinnerComponent,
     TrainingUploadModelComponent,
-    PruebaComponent
+    PruebaComponent,
+    HolisticComponent,
+    FramesComponent
   ],
   imports: [
     BrowserModule,

@@ -35,6 +35,7 @@ export class SplashScreenPageComponent implements OnInit {
       if (environment.training_mode) {
         // this._router.navigate(['/training-welcome']);
         this._router.navigate(['/prueba']);
+        // this._router.navigate(['/frames']);
       } else {
         await this.initializaDataset();
         await this._practiceModelService.loadFromAssets();

@@ -28,8 +28,42 @@ export class PruebaComponent implements OnInit {
 
   async ngOnInit() {
       console.log('Recuperando datasets...');
-      this.dataset = await this._jsonFileService.getJSONs();
-      this.startDataCollection();
+      this.dataset = await this._jsonFileService.loadFromAssets();
+      console.log(this.dataset);
+
+      /*for (let i = 0; i < this.dataset.words.length; i++) {
+        let word = this.dataset.words[i];
+        // subiendo gif a firebase
+        console.log('subiendo palabra:', word.word_label)
+        let url = `${environment.service_url}/upload_gif`;
+        let nombreArchivo = `gifs/${new Date().getTime()}.gif`;
+        let body = {
+          path: `${nombreArchivo}`,
+          image: word.word_gif
+        };
+        let response = await this._jsonFileService.uploadJsonFile(url, body);
+
+        word.word_gif = response.url;
+        console.log('subida exitosa');
+      }
+
+
+
+      // Convertir el arreglo a JSON
+      const jsonBlob = new Blob([JSON.stringify(this.dataset, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(jsonBlob);
+
+      // Crear un enlace temporal y simular un clic para descargar el archivo
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'datasetconurls.json';
+      document.body.appendChild(a);
+      a.click();
+
+      // Limpiar el enlace temporal
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      //this.startDataCollection();*/
   }
 
 
@@ -60,12 +94,12 @@ export class PruebaComponent implements OnInit {
       });
       console.log('Generando imágenes gif...');
       await this.generateGifs();
-      console.log('Subiendo dataset consolidado...');
-      await this.uploadDatasetJson();
-      console.log('Subiendo modelo entrenado...');
-      await this.uploadModel();
+      console.log('guardando dataset consolidado...');
+      await this.descargarDatasetFinal();
+      console.log('guardando modelo entrenado...');
+      // await this.uploadModel();
+      await this.save('downloads://my-model-entrenado');
       console.log('Proceso finalizado!!');
-      // await this.save('downloads://my-model');
     }
   }
 
@@ -120,19 +154,33 @@ export class PruebaComponent implements OnInit {
     }
   }
 
-  async uploadDatasetJson() {
+  async descargarDatasetFinal() {
     let data: DatasetJson = {
       sections: this.dataset.sections,
       words: this.dataset.words
     };
-    let url = `${environment.service_url}/upload_dataset`;
+    /*let url = `${environment.service_url}/upload_dataset`;
     let nombreArchivo = `dataset.json`;
     let body = {
       path: `${nombreArchivo}`,
       json: JSON.stringify(data)
     };
     let response = await this._jsonFileService.uploadJsonFile(url, body);
-    console.log(response);
+    console.log(response);*/
+    // Convertir el arreglo a JSON
+    const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(jsonBlob);
+
+    // Crear un enlace temporal y simular un clic para descargar el archivo
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'datasetfinal.json';
+    document.body.appendChild(a);
+    a.click();
+
+    // Limpiar el enlace temporal
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   async uploadModel() {

@@ -29,6 +29,16 @@ export class JsonFileService {
     }
   }
 
+  async loadFramesFromAssets(): Promise<any> {
+    let filePath = `assets/dataset/consolidado.json`;
+    try {
+      return await this.http.get<any>(filePath).toPromise();
+    } catch (error) {
+      console.error('Error cargando archivo JSON:', error);
+      throw error;
+    }
+  }
+
   async loadFromFirebase(): Promise<DatasetJson> {
     try {
       let path = environment.dataset.path;

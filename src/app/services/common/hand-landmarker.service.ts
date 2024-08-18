@@ -41,6 +41,15 @@ export class HandLandmarkerService {
     return this;
   }
 
+  detectImg(img: HTMLImageElement) {
+    if (this._handLandmarker) {
+      let result = this._handLandmarker.detect(img);
+      this._handLandmarks = result.landmarks;
+      this._handLandmarks = result.landmarks;
+    }
+    return this;
+  }
+
   private draw(canvas: HTMLCanvasElement, width: number, height: number) {
     if (this._handLandmarks) {
       let canvasCtx = canvas.getContext("2d");
@@ -49,7 +58,7 @@ export class HandLandmarkerService {
 
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       for (let landmarks of this._handLandmarks) {
         drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
           color: "#00FF00",
@@ -61,6 +70,31 @@ export class HandLandmarkerService {
       canvasCtx.restore();
     }
     return this;
+  }
+
+  drawImg(canvas: HTMLCanvasElement, width: number, height: number) {
+    if (this._handLandmarks) {
+      let canvasCtx = canvas.getContext("2d");
+      canvas.width = width;
+      canvas.height = height;
+
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let landmarks of this._handLandmarks) {
+        drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
+          color: "#00FF00",
+          lineWidth: 5
+        });
+        drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
+      }
+
+      canvasCtx.restore();
+    }
+    return {
+      handsDetected: this._handLandmarks ? true : false,
+      image: canvas.toDataURL('image/jpeg')
+    };
   }
 
   private handsDetected(): boolean {

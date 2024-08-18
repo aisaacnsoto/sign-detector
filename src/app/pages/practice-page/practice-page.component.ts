@@ -22,6 +22,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   randomWord: DatasetWord;
   randomIndexes: number[] = [];
   waitingForNextWord: boolean;
+  practiceStarted: boolean;
   practiceFinished: boolean;
   showSuccess: boolean;
   showFail: boolean;
@@ -35,14 +36,14 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
     ) {}
 
   ngOnInit() {
-    
+
   }
 
   async ngAfterViewInit() {
     await this.startCamera();
     this.setTrainingWizardService();
-    this.startPractice();
     this.setRandomWord();
+    this.startPractice();
   }
 
   ngOnDestroy() {
@@ -68,7 +69,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.signDetectorModelService.setHandsDetected(handsDetected);
       });
 
-    this.signDetectorModelService.startPrediction().subscribe(this.onPrediction);
+    this.signDetectorModelService.startPrediction().subscribe(word => this.onPrediction(word));
   }
 
   onPrediction = (word: DatasetWord) => {
@@ -105,7 +106,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
       this.randomWord = this.datasetService.getWords().at(randomIndex);
       this.randomWordEl.nativeElement.style.color = 'white';
       this.showSuccess = false;
-        this.showFail = false;
+      this.showFail = false;
       this.randomWordEl.nativeElement.textContent = this.randomWord.word_label;
       this.randomIndexes.push(randomIndex);
     } else {
