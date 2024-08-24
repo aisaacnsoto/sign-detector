@@ -1,0 +1,44 @@
+.exam-container {
+  text-align: center;
+}
+
+.card {
+  display: inline-block;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 200px;
+  cursor: pointer;
+  position: relative;
+}
+
+.correct {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.incorrect {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.card-icon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

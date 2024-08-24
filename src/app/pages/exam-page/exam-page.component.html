@@ -1,0 +1,21 @@
+<div class="exam-container">
+  <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
+
+  <div *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index"
+       (click)="selectOption(i)"
+       class="card"
+       [ngClass]="{
+          'correct': selectedOptionIndex !== null && option.correct,
+          'incorrect': selectedOptionIndex !== null && !option.correct
+       }">
+    <div class="card-icon">
+      <span *ngIf="selectedOptionIndex !== null && option.correct">✔️</span>
+      <span *ngIf="selectedOptionIndex !== null && !option.correct">❌</span>
+    </div>
+    <div class="card-content"><img [src]="option.image_url" width="150px" height="150px"></div>
+  </div>
+
+  <button *ngIf="showNextButton" (click)="nextQuestion()">
+    {{ currentQuestionIndex < questions.length - 1 ? 'Siguiente' : 'Finalizar Examen' }}
+  </button>
+</div>

@@ -17,6 +17,8 @@ import { TrainingUploadModelComponent } from './pages/training-upload-model/trai
 import { PruebaComponent } from './pages/prueba/prueba.component';
 import { HolisticComponent } from './components/holistic/holistic.component';
 import { FramesComponent } from './components/frames/frames.component';
+import { ExamPageComponent } from './pages/exam-page/exam-page.component';
+import { ExamResultPageComponent } from './pages/exam-result-page/exam-result-page.component';
 
 const routes: Routes = [
   {
@@ -86,6 +88,14 @@ const routes: Routes = [
   {
     path: 'frames',
     component: FramesComponent
+  },
+  {
+    path: 'exam',
+    component: ExamPageComponent
+  },
+  {
+    path: 'exam-result',
+    component: ExamResultPageComponent
   },
   { path: '', redirectTo: '/splash-screen', pathMatch: 'full' }, // Redirección predeterminada
   { path: '**', redirectTo: '/splash-screen' } // Ruta para manejar errores 404

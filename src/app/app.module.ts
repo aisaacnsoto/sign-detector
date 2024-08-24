@@ -36,6 +36,8 @@ import { TrainingUploadModelComponent } from './pages/training-upload-model/trai
 import { PruebaComponent } from './pages/prueba/prueba.component';
 import { HolisticComponent } from './components/holistic/holistic.component';
 import { FramesComponent } from './components/frames/frames.component';
+import { ExamPageComponent } from './pages/exam-page/exam-page.component';
+import { ExamResultPageComponent } from './pages/exam-result-page/exam-result-page.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { FramesComponent } from './components/frames/frames.component';
     TrainingUploadModelComponent,
     PruebaComponent,
     HolisticComponent,
-    FramesComponent
+    FramesComponent,
+    ExamPageComponent,
+    ExamResultPageComponent
   ],
   imports: [
     BrowserModule,

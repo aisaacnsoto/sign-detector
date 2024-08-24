@@ -19,11 +19,11 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  async initializaDataset() {
+  /*async initializaDataset() {
     let datasetJson = await this._jsonFileService.loadFromFirebase();
     console.log('dataset',datasetJson);
     this._datasetService.initializeDataset(datasetJson);
-  }
+  }*/
 
   onLearningClick = () => {
     this.router.navigate(['/learning/sections']);
@@ -33,4 +33,7 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(['/practice']);
   }
 
+  onExamenClick = () => {
+    this.router.navigate(['/exam']);
+  }
 }
