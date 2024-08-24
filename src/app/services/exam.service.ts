@@ -14,6 +14,7 @@ export interface Question {
 export class ExamService {
   private questions: Question[] = [];
   private score = 0;
+  private usedWordIndexes: number[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -24,13 +25,21 @@ export class ExamService {
 
   // Generar preguntas a partir de las palabras del archivo JSON
   generateQuestions(data: DatasetWord[]): Question[] {
+    this.clearQuestions();
+    this.restoreScore();
+    this.usedWordIndexes = [];
     for (let i = 0; i < 10; i++) {
-      const correctIndex = Math.floor(Math.random() * data.length);
-      const correctWordLabel = data[correctIndex].word_label;
-      const correctWordGifURL = data[correctIndex].word_gif;
+      let correctIndex = Math.floor(Math.random() * data.length);
+      while (this.usedWordIndexes.includes(correctIndex)) {
+        console.log('indice duplicado. volviendo a generar...')
+        correctIndex = Math.floor(Math.random() * data.length);
+      }
+      this.usedWordIndexes.push(correctIndex);
+      let correctWordLabel = data[correctIndex].word_label;
+      let correctWordGifURL = data[correctIndex].word_gif;
 
-      const question: Question = {
-        question: `¿Cuál es la seña para ${correctWordLabel}?`,
+      let question: Question = {
+        question: `¿Cuál es la seña para "${correctWordLabel}"?`,
         options: []
       };
 
@@ -38,12 +47,12 @@ export class ExamService {
       question.options.push({ image_url: correctWordGifURL, correct: true });
 
       // Añadir tres opciones incorrectas
-      const usedIndexes = [correctIndex];
+      let usedOptionIndexes = [correctIndex];
       while (question.options.length < 4) {
         const randomIndex = Math.floor(Math.random() * data.length);
-        if (!usedIndexes.includes(randomIndex)) {
+        if (!usedOptionIndexes.includes(randomIndex)) {
           question.options.push({ image_url: data[randomIndex].word_gif, correct: false });
-          usedIndexes.push(randomIndex);
+          usedOptionIndexes.push(randomIndex);
         }
       }
 
@@ -66,5 +75,13 @@ export class ExamService {
 
   incrementScore(): void {
     this.score += 1;
+  }
+
+  restoreScore(): void {
+    this.score  = 0;
+  }
+
+  clearQuestions(): void {
+    this.questions = [];
   }
 }

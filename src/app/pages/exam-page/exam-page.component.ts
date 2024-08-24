@@ -35,6 +35,7 @@ export class ExamPageComponent {
       this._examService.incrementScore();
     }
 
+    this.colorCards();
     this.showNextButton = true;
   }
 
@@ -43,8 +44,28 @@ export class ExamPageComponent {
       this.currentQuestionIndex++;
       this.selectedOptionIndex = null;
       this.showNextButton = false;
+      this.cleanColorCards();
     } else {
       this._router.navigate(['/exam-result']);
     }
+  }
+
+  colorCards() {
+    this.questions[this.currentQuestionIndex].options.forEach((option, index) => {
+      let el = document.querySelector(`p-card.card-${index} div.p-card.p-component`);
+      if (option.correct) {
+        el.classList.add('correct');
+      } else {
+        el.classList.add('incorrect');
+      }
+    });
+  }
+
+  cleanColorCards() {
+    this.questions[this.currentQuestionIndex].options.forEach((option, index) => {
+      let el = document.querySelector(`p-card.card-${index} div.p-card.p-component`);
+      el.classList.remove('correct');
+      el.classList.remove('incorrect');
+    });
   }
 }

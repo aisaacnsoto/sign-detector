@@ -75,7 +75,7 @@ export class TrainingTestPageComponent implements OnInit, OnDestroy, AfterViewIn
       this.statusEl.nativeElement.textContent = `Comenzando entrenamiento. (${epoch+1} / ${epochs_number})`;
     });
     this.statusEl.nativeElement.textContent = 'Entrenamiento finalizado.';
-    
+
     this._trainingWizardService.startPrediction().subscribe((prediction) => {
       if (prediction) {
         this.statusEl.nativeElement.textContent = prediction.word_label;
@@ -84,7 +84,10 @@ export class TrainingTestPageComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   onFinishClick = async () => {
-    this._router.navigate(['/training-upload-model']);
+    // this._router.navigate(['/training-upload-model']);
+    console.log('guardando modelo...')
+    this._trainingWizardService.save('downloads://model')
+    console.log('modelo descargado...')
   }
 
 }

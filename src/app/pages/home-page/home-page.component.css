@@ -1,4 +1,6 @@
-#learning-section, #practice-section {
+#learning-section,
+#practice-section,
+#exam-section {
     height: 150px;
     border-radius: 30px;
     color: white;
@@ -9,15 +11,20 @@
 }
 
 #learning-section {
-    background-color: #3f51b5;
+    background-color: #673ab7;
 }
 
 #practice-section {
-    background-color: #2196f3;
+    background-color: #3f51b5;
+}
+
+#exam-section {
+  background-color: #2196f3;
 }
 
 #learning-section img,
-#practice-section img {
+#practice-section img,
+#exam-section img {
     position: absolute;
     width: 200px;
     height: auto;
@@ -31,3 +38,8 @@
 #practice-section img {
     right: 20px;
 }
+
+#exam-section img {
+  left: 20px;
+}
+

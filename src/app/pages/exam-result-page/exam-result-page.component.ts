@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ExamService } from 'src/app/services/exam.service';
 
 @Component({
@@ -9,9 +10,18 @@ import { ExamService } from 'src/app/services/exam.service';
 export class ExamResultPageComponent {
   score: number = 0;
 
-  constructor(private examService: ExamService) {}
+  constructor(private examService: ExamService, private router: Router) {}
 
   ngOnInit(): void {
     this.score = this.examService.getScore();
   }
+
+  onReinicioClick = async () => {
+    this.router.navigate(['/exam']);
+  }
+
+  onPrincipalClick = async () => {
+    this.router.navigate(['/home']);
+  }
+
 }

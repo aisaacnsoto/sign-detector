@@ -1,4 +1,13 @@
-.result-container {
-  text-align: center;
-  margin-top: 50px;
+:host ::ng-deep button {
+  width: 100%;
+}
+
+.page-content {
+  justify-content: center;
+  align-items: center;
+}
+
+.score {
+  margin: 40px;
+  font-size: 50px;
 }

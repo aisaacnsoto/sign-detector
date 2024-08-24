@@ -1,10 +1,36 @@
-<div class="exam-container">
+<div class="page-header">
+  <h5>Pregunta {{currentQuestionIndex + 1}} de 10:</h5>
+  <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
+  <p><i>Seleccione la alternativa correcta</i></p>
+</div>
+<div class="page-content">
+  <div class="word-list">
+    <p-card *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index" (click)="selectOption(i)"
+      class="card-{{i}}">
+      <div class="item-content">
+        <div class="item-label">
+          <p>{{i + 1}}</p>
+          <div class="card-icon">
+            <span *ngIf="selectedOptionIndex !== null && option.correct">✔️</span>
+            <span *ngIf="selectedOptionIndex !== null && !option.correct">❌</span>
+          </div>
+        </div>
+        <img class="item-gif" [src]="option.image_url" *ngIf="option.image_url">
+      </div>
+    </p-card>
+  </div>
+</div>
+<div class="page-footer">
+  <p-button #trainButton class="train-button"
+    [label]="currentQuestionIndex < questions.length - 1 ? 'Siguiente' : 'Finalizar examen'" [rounded]="true"
+    *ngIf="showNextButton" (onClick)="nextQuestion()"></p-button>
+</div>
+<!-- backup -->
+<!-- <div class="exam-container">
   <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
 
-  <div *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index"
-       (click)="selectOption(i)"
-       class="card"
-       [ngClass]="{
+  <div *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index" (click)="selectOption(i)"
+    class="card" [ngClass]="{
           'correct': selectedOptionIndex !== null && option.correct,
           'incorrect': selectedOptionIndex !== null && !option.correct
        }">
@@ -16,6 +42,5 @@
   </div>
 
   <button *ngIf="showNextButton" (click)="nextQuestion()">
-    {{ currentQuestionIndex < questions.length - 1 ? 'Siguiente' : 'Finalizar Examen' }}
-  </button>
-</div>
+    {{ currentQuestionIndex < questions.length - 1 ? 'Siguiente' : 'Finalizar Examen' }} </button>
+</div> -->

@@ -26,6 +26,7 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   practiceFinished: boolean;
   showSuccess: boolean;
   showFail: boolean;
+  currentWordIndex: number = 0;
 
   constructor(
     private webcamService: WebcamService,
@@ -42,7 +43,8 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   async ngAfterViewInit() {
     await this.startCamera();
     this.setTrainingWizardService();
-    this.setRandomWord();
+    // this.setRandomWord();
+    this.setCurrentWord();
     this.startPractice();
   }
 
@@ -90,7 +92,9 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
   generateNextWord() {
     this.waitingForNextWord = true;
     setTimeout(() => {
-      this.setRandomWord();
+      this.currentWordIndex++;
+      // this.setRandomWord();
+      this.setCurrentWord();
       this.waitingForNextWord = false;
     }, 2000);
   }
@@ -99,8 +103,9 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate(['/home']);
   }
 
-  setRandomWord() {
+  /*setRandomWord() {
     let datasetWordCount = this.datasetService.getWords().length;
+    // let randomIndex = Math.floor(Math.random() * datasetWordCount);
     let randomIndex = Math.floor(Math.random() * datasetWordCount);
     if (!this.randomIndexes.includes(randomIndex)) {
       this.randomWord = this.datasetService.getWords().at(randomIndex);
@@ -120,6 +125,25 @@ export class PracticePageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.showFail = false;
         console.log('no hay más palabras en el dataset');
       }
+    }
+  }*/
+
+  setCurrentWord() {
+    // let datasetWordCount = this.datasetService.getWords().length;
+    let totalAlfabeto = 27;
+    if (this.currentWordIndex < totalAlfabeto) {
+      this.randomWord = this.datasetService.getWords().at(this.currentWordIndex);
+      this.randomWordEl.nativeElement.style.color = 'white';
+      this.showSuccess = false;
+      this.showFail = false;
+      this.randomWordEl.nativeElement.textContent = this.randomWord.word_label;
+    } else {
+      this.practiceFinished = true;
+      this.randomWordEl.nativeElement.textContent = '';
+      this.randomWordEl.nativeElement.style.color = 'white';
+      this.showSuccess = false;
+      this.showFail = false;
+      console.log('no hay más palabras en el dataset');
     }
   }
 

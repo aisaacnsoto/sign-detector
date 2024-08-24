@@ -1,4 +1,4 @@
-.exam-container {
+/* .exam-container {
   text-align: center;
 }
 
@@ -11,25 +11,63 @@
   width: 200px;
   cursor: pointer;
   position: relative;
+} */
+
+:host ::ng-deep .page-footer button,
+:host ::ng-deep p-card {
+  width: 100%;
 }
 
-.correct {
+:host ::ng-deep .p-card {
+  overflow: hidden;
+  border-radius: 30px;
+  font-weight: bold;
+  color: black;
+}
+
+:host ::ng-deep .p-card-body,
+:host ::ng-deep .p-card-content {
+  padding: 0px;
+}
+
+.word-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.item-content {
+  padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.item-label {
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+:host ::ng-deep .p-card.correct {
   background-color: #d4edda;
   border-color: #c3e6cb;
 }
 
-.incorrect {
+:host ::ng-deep .p-card.incorrect {
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
 
-.card-icon {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
-
-button {
+/* button {
   margin-top: 20px;
   padding: 10px 20px;
   border: none;
@@ -41,4 +79,4 @@ button {
 
 button:hover {
   background-color: #0056b3;
-}
+} */
