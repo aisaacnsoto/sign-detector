@@ -43,3 +43,9 @@
   left: 20px;
 }
 
+.credits {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  bottom: 10px;
+}
