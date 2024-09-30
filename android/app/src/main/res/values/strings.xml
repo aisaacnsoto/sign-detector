@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Aprendiendo lenguaje de señas</string>
-    <string name="title_activity_main">Aprendiendo lenguaje de señas</string>
+    <string name="app_name">Señas para todos</string>
+    <string name="title_activity_main">Señas para todos</string>
     <string name="package_name">com.aisaacnsoto.dev</string>
     <string name="custom_url_scheme">com.aisaacnsoto.dev</string>
 </resources>
