@@ -2,10 +2,43 @@
   <h1>Conciencia</h1>
 </div>
 <div class="page-content">
-  <div pRipple class="section" (click)="onGoClick(section.section_index)" *ngFor="let section of sections; let odd=odd">
-      <img class="hand-point-right" src="assets/img/hand-point-right.svg" *ngIf="!odd">
-      <img class="hand-point-left" src="assets/img/hand-point-left.svg" *ngIf="odd">
-      <p>{{section.section_label}}</p>
+  <!-- Card 1 -->
+  <div class="card">
+    <img src="https://cdn.www.gob.pe/uploads/document/file/7010496/1030322-foto-1_aprender-lsp.png"
+      alt="Inclusión en el Perú">
+    <div class="card-content">
+      <h3>Importancia de la LSP en la inclusión social</h3>
+      <p>En Perú, el 7.6% de personas tiene dificultades auditivas. Aprender la LSP facilita la comunicación y promueve
+        una sociedad inclusiva y empática.</p>
+      <a href="https://www.gob.pe/institucion/conadis/noticias/1030322-lengua-de-senas-peruana-donde-aprender-este-idioma-y-por-que-es-importante-para-promover-la-inclusion"
+        target="_blank">Fuente: CONADIS</a>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card">
+    <img src="https://cdn.www.gob.pe/uploads/document/file/4717803/4%20rozanes%20para%20aprender%20LSP.png"
+      alt="Beneficios de aprender LSP">
+    <div class="card-content">
+      <h3>Beneficios de aprender LSP</h3>
+      <p>La LSP mejora la memoria y agilidad mental. Además, es una habilidad que abre oportunidades laborales en
+        diversos sectores.</p>
+      <a href="https://www.gob.pe/institucion/conadis/noticias/781320-lengua-de-senas-peruana-cuatro-razones-para-aprenderla-y-fomentar-la-inclusion-en-la-sociedad"
+        target="_blank">Fuente: CONADIS</a>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card">
+    <img src="https://cdn.www.gob.pe/uploads/document/file/6985843/1027180-portada-frente.jpeg"
+      alt="Iniciativas de salud inclusivas">
+    <div class="card-content">
+      <h3>Iniciativas de salud inclusivas</h3>
+      <p>El MINSA capacita a su personal en LSP para una atención más inclusiva, facilitando el acceso de personas
+        sordas a los servicios de salud.</p>
+      <a href="https://www.gob.pe/institucion/minsa/noticias/1027180-dia-nacional-de-la-lengua-de-senas-minsa-registra-mas-de-16-700-peruanos-con-discapacidad-auditiva"
+        target="_blank">Fuente: MINSA</a>
+    </div>
   </div>
 </div>
 <div class="page-footer">
