@@ -19,6 +19,7 @@ import { HolisticComponent } from './components/holistic/holistic.component';
 import { FramesComponent } from './components/frames/frames.component';
 import { ExamPageComponent } from './pages/exam-page/exam-page.component';
 import { ExamResultPageComponent } from './pages/exam-result-page/exam-result-page.component';
+import { ConcienciaPageComponent } from './pages/conciencia-page/conciencia-page.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,10 @@ const routes: Routes = [
   {
     path: 'exam-result',
     component: ExamResultPageComponent
+  },
+  {
+    path: 'conciencia',
+    component: ConcienciaPageComponent
   },
   { path: '', redirectTo: '/splash-screen', pathMatch: 'full' }, // Redirección predeterminada
   { path: '**', redirectTo: '/splash-screen' } // Ruta para manejar errores 404

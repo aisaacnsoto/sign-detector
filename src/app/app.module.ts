@@ -38,6 +38,7 @@ import { HolisticComponent } from './components/holistic/holistic.component';
 import { FramesComponent } from './components/frames/frames.component';
 import { ExamPageComponent } from './pages/exam-page/exam-page.component';
 import { ExamResultPageComponent } from './pages/exam-result-page/exam-result-page.component';
+import { ConcienciaPageComponent } from './pages/conciencia-page/conciencia-page.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ExamResultPageComponent } from './pages/exam-result-page/exam-result-pa
     HolisticComponent,
     FramesComponent,
     ExamPageComponent,
-    ExamResultPageComponent
+    ExamResultPageComponent,
+    ConcienciaPageComponent
   ],
   imports: [
     BrowserModule,

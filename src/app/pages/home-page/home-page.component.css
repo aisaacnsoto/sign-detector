@@ -1,46 +1,56 @@
 #learning-section,
 #practice-section,
-#exam-section {
-    height: 150px;
-    border-radius: 30px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
+#exam-section,
+#conciencia-section {
+  height: 150px;
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
 #learning-section {
-    background-color: #673ab7;
+  background-color: #673ab7;
 }
 
 #practice-section {
-    background-color: #3f51b5;
+  background-color: #3f51b5;
 }
 
 #exam-section {
   background-color: #2196f3;
 }
 
+#conciencia-section {
+  background-color: #00bcd4;
+}
+
 #learning-section img,
 #practice-section img,
-#exam-section img {
-    position: absolute;
-    width: 200px;
-    height: auto;
-    opacity: 0.2;
+#exam-section img,
+#conciencia-section img {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  opacity: 0.2;
 }
 
 #learning-section img {
-    left: 20px;
+  left: 20px;
 }
 
 #practice-section img {
-    right: 20px;
+  right: 20px;
 }
 
 #exam-section img {
   left: 20px;
+}
+
+#conciencia-section img {
+  right: 20px;
 }
 
 .credits {

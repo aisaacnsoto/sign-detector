@@ -36,4 +36,8 @@ export class HomePageComponent implements OnInit {
   onExamenClick = () => {
     this.router.navigate(['/exam']);
   }
+
+  onConcienciaClick = () => {
+    this.router.navigate(['/conciencia']);
+  }
 }
